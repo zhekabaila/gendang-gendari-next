@@ -1,10 +1,7 @@
-import React from 'react'
-import HomeLayout from './_layouts/home-layout'
+import { HomeLayout } from './_layouts/home-layout'
 
 function HomePage() {
-  return (
-    <HomeLayout />
-  )
+  return <HomeLayout />
 }
 
 export default HomePage
