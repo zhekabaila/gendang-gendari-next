@@ -1,21 +1,21 @@
-import { Ticket } from '@/json/mockData'
+import { TicketResponse } from '@/lib/types'
 import { Calendar, MapPin, Users, Sparkles } from 'lucide-react'
+
 interface TicketCardProps {
-  ticket: Ticket
+  ticket: TicketResponse
   featured?: boolean
 }
 
 export function TicketCard({ ticket, featured = false }: TicketCardProps) {
-  const soldPercentage = (ticket.ticketsSold / ticket.capacity) * 100
-  const isAlmostFull = soldPercentage >= 80
+  const isAlmostFull = ticket.persentaseTerisi >= 80
 
   return (
     <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1">
       <div className="relative overflow-hidden h-56">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={ticket.imageUrl}
-          alt={ticket.title}
+          src={'https://placehold.co/600x400'}
+          alt={ticket.judul}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -27,8 +27,14 @@ export function TicketCard({ ticket, featured = false }: TicketCardProps) {
           </div>
         )}
 
-        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
-          <span className="text-purple-700">{ticket.category}</span>
+        <div className="absolute bottom-4 left-4 flex items-center flex-wrap gap-2">
+          {ticket.kategori.map((e) => (
+            <span
+              key={e}
+              className="block text-purple-700 bg-white/90 backdrop-blur-sm text-[10px] px-2 py-0.5 rounded-full">
+              {e}
+            </span>
+          ))}
         </div>
 
         {isAlmostFull && (
@@ -39,13 +45,13 @@ export function TicketCard({ ticket, featured = false }: TicketCardProps) {
       </div>
 
       <div className="p-6">
-        <h3 className="text-xl mb-3 line-clamp-2 group-hover:text-purple-600 transition-colors">{ticket.title}</h3>
+        <h3 className="text-xl mb-3 line-clamp-2 group-hover:text-purple-600 transition-colors">{ticket.judul}</h3>
 
         <div className="space-y-2 mb-4">
           <div className="flex items-center gap-2 text-gray-600">
             <Calendar className="w-4 h-4 text-purple-500" />
             <span className="text-sm">
-              {new Date(ticket.date).toLocaleDateString('id-ID', {
+              {new Date(ticket.tanggal).toLocaleDateString('id-ID', {
                 weekday: 'long',
                 year: 'numeric',
                 month: 'long',
@@ -56,13 +62,13 @@ export function TicketCard({ ticket, featured = false }: TicketCardProps) {
           <div className="flex items-center gap-2 text-gray-600">
             <MapPin className="w-4 h-4 text-pink-500" />
             <span className="text-sm">
-              {ticket.venue}, {ticket.city}
+              {ticket.venue}, {ticket.kota}
             </span>
           </div>
           <div className="flex items-center gap-2 text-gray-600">
             <Users className="w-4 h-4 text-indigo-500" />
             <span className="text-sm">
-              {ticket.ticketsSold} / {ticket.capacity} tiket terjual
+              {ticket.totalTerjual} / {ticket.kapasitas} tiket terjual
             </span>
           </div>
         </div>
@@ -74,7 +80,7 @@ export function TicketCard({ ticket, featured = false }: TicketCardProps) {
               className={`h-full rounded-full transition-all ${
                 isAlmostFull ? 'bg-gradient-to-r from-red-500 to-orange-500' : 'bg-gradient-to-r from-purple-500 to-pink-500'
               }`}
-              style={{ width: `${soldPercentage}%` }}
+              style={{ width: `${ticket.persentaseTerisi}%` }}
             />
           </div>
         </div>
@@ -83,7 +89,7 @@ export function TicketCard({ ticket, featured = false }: TicketCardProps) {
           <div>
             <div className="text-sm text-gray-500 mb-1">Harga mulai dari</div>
             <div className="text-2xl bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-              Rp {ticket.price.toLocaleString('id-ID')}
+              Rp {ticket.harga.toLocaleString('id-ID')}
             </div>
           </div>
           <button className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all">

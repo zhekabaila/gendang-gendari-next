@@ -1,4 +1,4 @@
-import { BlogLayout } from './_layouts/home-layout'
+import { BlogLayout } from './_layouts/blog-layout'
 
 function HomePage() {
   return <BlogLayout />
