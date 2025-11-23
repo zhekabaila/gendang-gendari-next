@@ -1,8 +1,6 @@
 'use client'
 
-import { Footer } from '@/app/_components/Footer'
-import { Navbar } from '@/app/_components/Navbar'
-import { BookOpen, Search, Filter } from 'lucide-react'
+import { BookOpen, Filter, Loader } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { BlogCard } from '../_components/BlogCard'
 import { API } from '@/services'
@@ -12,37 +10,23 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useBlogStore } from '@/_stores/use-blog-store'
 import { blogServices } from '@/services/blog'
 import InputSearch from '@/components/core/input-search'
-
-const NEXR_PUBLIC_HARD_CODED_TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiMDJjMmQwMmItODI5MS00ZjhhLWJmZmMtOGUyMTU4YzdiNjZhIiwibmFtYSI6IkpvaG4gRG9lIiwidW11ciI6MjUsImFzYWxLb3RhIjoiSmFrYXJ0YSIsInVzZXJuYW1lIjoiam9obmRvZSIsInBhc3N3b3JkIjoiJDJiJDEwJEhyZTVXNEZxYVdEWEhiVlZlN0xJU08uaUZRSDZsRWlnQmNuWXNVaDdxcTBpREFFV0NSaXJPIiwicGhvbmUiOiIwODEyMzQ1Njc4OSIsImNyZWF0ZWRBdCI6IjIwMjUtMTEtMTdUMTM6NTU6NTMuNzk1WiIsInVwZGF0ZWRBdCI6IjIwMjUtMTEtMTdUMTM6NTU6NTMuNzk1WiJ9LCJpYXQiOjE3NjM2NDk2MjAsImV4cCI6MTc2NjI0MTYyMH0.7RPE0xDwmbWW_uC3eRdXrKa_IB0vkoH_dOXqIBwK-jQ'
+import { BlogCardSkeleton, FilterSkeleton, FeaturedArticleSkeleton } from '@/components/core/skeleton'
 
 export function BlogLayout() {
-  const [ticketPageParams, setTicketPageParams] = useState<number>(1)
-  const [ticketSearch, setTicketSearch] = useState<string>('')
+  // Blog states
+  const [blogPageParams, setBlogPageParams] = useState<number>(1)
 
+  // Categories states
   const [categories, setCategories] = useState<string[]>([])
-  const [cities, setCities] = useState<string[]>([])
-
   const [loadingCategories, setLoadingCategories] = useState(true)
   const [fetchingCategories, setFetchingCategories] = useState(false)
-
-  const [loadingCities, setLoadingCities] = useState(true)
-  const [fetchingCities, setFetchingCities] = useState(false)
 
   const { blogs, setBlogs, setLoading, loading, fetching, setFetching, pagination } = useBlogStore()
 
   const searchParams = useSearchParams()
 
-  const pageParams = searchParams.get('page')
-  const sortParams = searchParams.get('sort')
-  const limitParams = searchParams.get('limit')
   const qParams = searchParams.get('q') || ''
   const categoryParams = searchParams.get('category') || null
-  const cityParams = searchParams.get('city') || null
-
-  const parsedPage = pageParams ? parseInt(pageParams, 10) || 1 : 1
-  const parsedSort = sortParams === '1' ? 1 : -1
-  const parsedLimit = limitParams ? parseInt(limitParams, 10) || 10 : 10
 
   const navigate = useRouter()
 
@@ -58,6 +42,7 @@ export function BlogLayout() {
 
   const fetchBlogs = useCallback(
     (type: 'fetch' | 'loadmore' = 'fetch') => {
+      // Cancel previous request if exists
       if (!loading) {
         setFetching(true)
       }
@@ -65,14 +50,11 @@ export function BlogLayout() {
       API({
         method: 'GET',
         url: blogServices.getAll,
-        headers: {
-          Authorization: `Bearer ${NEXR_PUBLIC_HARD_CODED_TOKEN}`
-        },
         params: {
           sort: -1,
-          page: type === 'fetch' ? 1 : ticketPageParams,
+          page: type === 'fetch' ? 1 : blogPageParams,
           limit: 50,
-          value: ticketSearch || undefined,
+          value: qParams || undefined,
           kategori: categoryParams || undefined
         }
       })
@@ -82,7 +64,7 @@ export function BlogLayout() {
             setBlogs([...blogs, ...agentData], others)
           } else {
             setBlogs(agentData, others)
-            setTicketPageParams(1)
+            setBlogPageParams(1)
           }
         })
         .catch((error) => {
@@ -93,7 +75,7 @@ export function BlogLayout() {
                 '500: Internal Server Error'
             )
           } else {
-            toast.error('Failed to fetch user agents')
+            toast.error('Failed to fetch blogs')
           }
         })
         .finally(() => {
@@ -101,24 +83,18 @@ export function BlogLayout() {
           else setFetching(false)
         })
     },
-    [ticketSearch, categoryParams]
+    [blogPageParams, qParams, categoryParams, qParams]
   )
 
   const fetchCategories = useCallback(() => {
-    if (!loadingCategories) {
-      setFetchingCategories(true)
-    }
+    setLoadingCategories(true)
 
     API({
       method: 'GET',
-      url: blogServices.selectCategory,
-      headers: {
-        Authorization: `Bearer ${NEXR_PUBLIC_HARD_CODED_TOKEN}`
-      }
+      url: blogServices.selectCategory
     })
       .then((res) => {
         const { data } = res.data
-        console.log('CAT', data)
         setCategories(data)
       })
       .catch((error) => {
@@ -129,29 +105,29 @@ export function BlogLayout() {
               '500: Internal Server Error'
           )
         } else {
-          toast.error('Failed to fetch user agents')
+          toast.error('Failed to fetch categories')
         }
       })
       .finally(() => {
-        if (loadingCategories) setLoadingCategories(false)
-        else setFetchingCategories(false)
+        setLoadingCategories(false)
       })
   }, [])
 
+  // Initial fetch - runs only once on mount
   useEffect(() => {
     fetchBlogs()
-  }, [categoryParams, cityParams, ticketSearch])
-
-  useEffect(() => {
     fetchCategories()
   }, [])
 
+  // Fetch blogs when filters change
+  useEffect(() => {
+    fetchBlogs()
+  }, [categoryParams, qParams])
+
   return (
     <div className="min-h-screen">
-      <Navbar />
-
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 text-white">
+      <section className="relative overflow-hidden h-[600px] flex flex-col items-center justify-center bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 text-white">
         <div className="absolute inset-0 opacity-10">
           <div
             className="absolute inset-0"
@@ -161,7 +137,7 @@ export function BlogLayout() {
             }}
           />
         </div>
-        <div className="relative max-w-7xl mx-auto px-8 py-24 text-center">
+        <div className="relative max-w-7xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-6">
             <BookOpen className="w-5 h-5" />
             <span>Blog & Artikel</span>
@@ -177,13 +153,17 @@ export function BlogLayout() {
       </section>
 
       {/* Featured Article */}
-      {!loading && (
+      {loading ? (
+        <section className="max-w-7xl mx-auto px-8 mt-16 mb-16">
+          <FeaturedArticleSkeleton />
+        </section>
+      ) : blogs.length > 0 ? (
         <section className="max-w-7xl mx-auto px-8 mt-16 mb-16">
           <div className="bg-white rounded-3xl overflow-hidden shadow-2xl grid grid-cols-2 cursor-pointer group hover:shadow-3xl transition-all">
             <div className="relative h-96 overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={'https://placehold.co/600x400'}
+                src={blogs[0].gambar || 'https://placehold.co/600x400'}
                 alt={blogs[0].judul}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               />
@@ -208,41 +188,48 @@ export function BlogLayout() {
                 <span>•</span>
                 <span>{new Date(blogs[0].createdAt).toLocaleDateString('id-ID')}</span>
                 <span>•</span>
-                <span>{blogs[0].waktuBaca}</span>
+                <span>{blogs[0].waktuBaca} min</span>
               </div>
             </div>
           </div>
         </section>
-      )}
+      ) : null}
 
       {/* Search & Filter */}
       <section className="max-w-7xl mx-auto px-8 mb-12">
-        <div className="bg-white rounded-2xl p-6 shadow-lg">
-          <div className="grid grid-cols-2 gap-6">
-            {/* Search */}
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <InputSearch
-                type="text"
-                defaultValue={qParams}
-                onChangeValue={(e) => handleFilter('q', e)}
-                placeholder="Cari artikel..."
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-            </div>
-
-            {/* Category Filter */}
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <Filter className="w-4 h-4 text-gray-600" />
-                <span className="text-sm text-gray-600">Kategori:</span>
+        {loadingCategories ? (
+          <FilterSkeleton />
+        ) : (
+          <div className="bg-white rounded-2xl p-6 shadow-lg">
+            <div className="grid grid-cols-2 gap-6">
+              {/* Search */}
+              <div className="relative">
+                <InputSearch
+                  type="text"
+                  defaultValue={qParams}
+                  onChangeValue={(e) => handleFilter('q', e)}
+                  placeholder="Cari artikel..."
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                />
               </div>
-              <div className="flex flex-wrap gap-2">
-                {!loading &&
-                  categories.map((category) => (
+
+              {/* Category Filter */}
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <Filter className="w-4 h-4 text-gray-600" />
+                  <span className="text-sm text-gray-600">Kategori:</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {categories.map((category) => (
                     <button
                       key={category}
-                      onClick={() => handleFilter('category', category)}
+                      onClick={() => {
+                        if (category === categoryParams) {
+                          handleFilter('category', '')
+                          return
+                        }
+                        handleFilter('category', category)
+                      }}
                       className={`px-4 py-2 rounded-xl transition-all ${
                         categoryParams === category
                           ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-md'
@@ -251,10 +238,11 @@ export function BlogLayout() {
                       {category}
                     </button>
                   ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </section>
 
       {/* Blog Grid */}
@@ -264,11 +252,27 @@ export function BlogLayout() {
           <h2 className="text-3xl">Semua Artikel</h2>
         </div>
 
-        {blogs.length > 0 ? (
+        {loading ? (
           <div className="grid grid-cols-3 gap-8">
-            {blogs.map((blog) => (
-              <BlogCard key={blog.id} blog={blog} />
+            {Array.from({ length: 6 }).map((_, i) => (
+              <BlogCardSkeleton key={i} />
             ))}
+          </div>
+        ) : blogs.length > 0 ? (
+          <div className="relative">
+            <div className="grid grid-cols-3 gap-8">
+              {blogs.map((blog) => (
+                <BlogCard key={blog.id} blog={blog} />
+              ))}
+            </div>
+
+            {/* Fetching indicator */}
+            {fetching && (
+              <div className="absolute bg-white/20 backdrop-blur-sm inset-0 flex items-center justify-center py-8 gap-2">
+                <Loader className="w-5 h-5 animate-spin text-purple-600" />
+                <span className="text-gray-600">Memuat lebih banyak artikel...</span>
+              </div>
+            )}
           </div>
         ) : (
           <div className="text-center py-16">
@@ -280,8 +284,6 @@ export function BlogLayout() {
           </div>
         )}
       </section>
-
-      <Footer />
     </div>
   )
 }

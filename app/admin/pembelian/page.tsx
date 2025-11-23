@@ -1,11 +1,11 @@
 import { cookies } from 'next/headers'
-import { AdminDashboard } from './_layouts/home-layout'
+import { AdminPembeliManagement } from './_layouts/home-layout'
 
 async function HomePage() {
   const cookieStore = await cookies()
   const token = cookieStore.get('token')
 
-  return <AdminDashboard token={token?.value!} />
+  return <AdminPembeliManagement token={token?.value!} />
 }
 
 export default HomePage

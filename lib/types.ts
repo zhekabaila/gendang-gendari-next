@@ -39,6 +39,8 @@ export interface TicketResponse {
   persentaseTerisi: number
 }
 
+export type Role = 'USER' | 'ADMIN'
+
 export interface UserResponse {
   id: string
   nama: string
@@ -46,6 +48,7 @@ export interface UserResponse {
   asalKota: string
   username: string
   password: string // hashed password
+  role: Role
   phone?: string
   createdAt: string
   updatedAt: string

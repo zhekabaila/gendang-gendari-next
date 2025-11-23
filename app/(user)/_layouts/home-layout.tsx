@@ -1,30 +1,28 @@
 'use client'
 
 import { useTicketStore } from '@/_stores/use-ticket-store'
-import { Footer } from '@/app/_components/Footer'
-import { Navbar } from '@/app/_components/Navbar'
 import { TicketCard } from '@/app/_components/TicketCard'
 import { API } from '@/services'
 import { ticketServices } from '@/services/ticket'
 import { AxiosError } from 'axios'
-import { Sparkles, Calendar, MapPin, Filter } from 'lucide-react'
+import { Sparkles, Calendar, MapPin, Filter, Loader } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
-
-const NEXR_PUBLIC_HARD_CODED_TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiMDJjMmQwMmItODI5MS00ZjhhLWJmZmMtOGUyMTU4YzdiNjZhIiwibmFtYSI6IkpvaG4gRG9lIiwidW11ciI6MjUsImFzYWxLb3RhIjoiSmFrYXJ0YSIsInVzZXJuYW1lIjoiam9obmRvZSIsInBhc3N3b3JkIjoiJDJiJDEwJEhyZTVXNEZxYVdEWEhiVlZlN0xJU08uaUZRSDZsRWlnQmNuWXNVaDdxcTBpREFFV0NSaXJPIiwicGhvbmUiOiIwODEyMzQ1Njc4OSIsImNyZWF0ZWRBdCI6IjIwMjUtMTEtMTdUMTM6NTU6NTMuNzk1WiIsInVwZGF0ZWRBdCI6IjIwMjUtMTEtMTdUMTM6NTU6NTMuNzk1WiJ9LCJpYXQiOjE3NjM2NDk2MjAsImV4cCI6MTc2NjI0MTYyMH0.7RPE0xDwmbWW_uC3eRdXrKa_IB0vkoH_dOXqIBwK-jQ'
+import { TicketCardSkeleton, FilterSkeleton } from '@/components/core/skeleton'
 
 export function HomeLayout() {
+  // Ticket states
   const [ticketPageParams, setTicketPageParams] = useState<number>(1)
   const [ticketSearch, setTicketSearch] = useState<string>('')
 
+  // Categories states
   const [categories, setCategories] = useState<string[]>([])
-  const [cities, setCities] = useState<string[]>([])
-
   const [loadingCategories, setLoadingCategories] = useState(true)
   const [fetchingCategories, setFetchingCategories] = useState(false)
 
+  // Cities states
+  const [cities, setCities] = useState<string[]>([])
   const [loadingCities, setLoadingCities] = useState(true)
   const [fetchingCities, setFetchingCities] = useState(false)
 
@@ -64,9 +62,6 @@ export function HomeLayout() {
       API({
         method: 'GET',
         url: ticketServices.getAll,
-        headers: {
-          Authorization: `Bearer ${NEXR_PUBLIC_HARD_CODED_TOKEN}`
-        },
         params: {
           sort: -1,
           page: type === 'fetch' ? 1 : ticketPageParams,
@@ -93,7 +88,7 @@ export function HomeLayout() {
                 '500: Internal Server Error'
             )
           } else {
-            toast.error('Failed to fetch user agents')
+            toast.error('Failed to fetch tickets')
           }
         })
         .finally(() => {
@@ -101,24 +96,18 @@ export function HomeLayout() {
           else setFetching(false)
         })
     },
-    [ticketSearch, categoryParams, cityParams]
+    [ticketPageParams, ticketSearch, categoryParams, cityParams]
   )
 
   const fetchCategories = useCallback(() => {
-    if (!loadingCategories) {
-      setFetchingCategories(true)
-    }
+    setLoadingCategories(true)
 
     API({
       method: 'GET',
-      url: ticketServices.selectCategory,
-      headers: {
-        Authorization: `Bearer ${NEXR_PUBLIC_HARD_CODED_TOKEN}`
-      }
+      url: ticketServices.selectCategory
     })
       .then((res) => {
         const { data } = res.data
-        console.log('CAT', data)
         setCategories(data)
       })
       .catch((error) => {
@@ -129,7 +118,7 @@ export function HomeLayout() {
               '500: Internal Server Error'
           )
         } else {
-          toast.error('Failed to fetch user agents')
+          toast.error('Failed to fetch categories')
         }
       })
       .finally(() => {
@@ -139,20 +128,14 @@ export function HomeLayout() {
   }, [])
 
   const fetchCities = useCallback(() => {
-    if (!loadingCities) {
-      setFetchingCities(true)
-    }
+    setLoadingCities(true)
 
     API({
       method: 'GET',
-      url: ticketServices.selectCity,
-      headers: {
-        Authorization: `Bearer ${NEXR_PUBLIC_HARD_CODED_TOKEN}`
-      }
+      url: ticketServices.selectCity
     })
       .then((res) => {
         const { data } = res.data
-        console.log('CIT', data)
         setCities(data)
       })
       .catch((error) => {
@@ -163,27 +146,29 @@ export function HomeLayout() {
               '500: Internal Server Error'
           )
         } else {
-          toast.error('Failed to fetch user agents')
+          toast.error('Failed to fetch cities')
         }
       })
       .finally(() => {
-        if (loadingCities) setLoadingCategories(false)
+        if (loadingCities) setLoadingCities(false)
         else setFetchingCities(false)
       })
   }, [])
 
+  // Initial fetch - runs only once on mount
+  useEffect(() => {
+    fetchTickets()
+    fetchCategories()
+    fetchCities()
+  }, [])
+
+  // Fetch tickets when filters change
   useEffect(() => {
     fetchTickets()
   }, [categoryParams, cityParams, ticketSearch])
 
-  useEffect(() => {
-    Promise.allSettled([fetchCategories(), fetchCities()]).then(() => console.log('SUCCESS FETCH SELECT'))
-  }, [])
-
   return (
     <div className="min-h-screen">
-      <Navbar />
-
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center">
         <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 via-purple-500/20 to-indigo-500/20" />
@@ -246,89 +231,109 @@ export function HomeLayout() {
 
       {/* Main Ticket List Section */}
       <section id="ticket-section" className="max-w-7xl mx-auto px-8 py-16">
-        <div className="flex items-center justify-between mb-8">
+        <div className="mb-8">
           <div className="flex items-center gap-3">
             <Calendar className="w-7 h-7 text-purple-600" />
             <h2 className="text-3xl">Semua Pertunjukan</h2>
           </div>
-          <div className="flex items-center gap-3">
-            <Filter className="w-5 h-5 text-gray-600" />
-            <span className="text-gray-600">Filter:</span>
-          </div>
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-2xl p-6 shadow-lg mb-8">
-          <div className="grid grid-cols-2 gap-6">
-            <div>
-              <label className="text-sm text-gray-600 mb-2 block">Kategori</label>
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => {
-                      if (category === categoryParams) {
-                        handleFilter('category', '')
-                        return
-                      }
-                      handleFilter('category', category)
-                    }}
-                    className={`px-4 py-2 rounded-xl transition-all ${
-                      categoryParams === category
-                        ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}>
-                    {category}
-                  </button>
-                ))}
-              </div>
+        {loadingCategories || loadingCities ? (
+          <FilterSkeleton />
+        ) : (
+          <div className="bg-white rounded-2xl p-6 shadow-lg mb-8">
+            <div className="flex items-center gap-3 mb-4">
+              <Filter className="w-5 h-5 text-gray-600" />
+              <span className="text-gray-600">Filter:</span>
             </div>
-            <div>
-              <label className="text-sm text-gray-600 mb-2 block">Kota</label>
-              <div className="flex flex-wrap gap-2">
-                {cities.map((city) => (
-                  <button
-                    key={city}
-                    onClick={() => {
-                      if (city === cityParams) {
-                        handleFilter('city', '')
-                        return
-                      }
-                      handleFilter('city', city)
-                    }}
-                    className={`px-4 py-2 rounded-xl transition-all flex items-center gap-2 ${
-                      cityParams === city
-                        ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}>
-                    <MapPin className="w-4 h-4" />
-                    {city}
-                  </button>
-                ))}
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <label className="text-sm text-gray-600 mb-2 block">Kategori</label>
+                <div className="flex flex-wrap gap-2">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => {
+                        if (category === categoryParams) {
+                          handleFilter('category', '')
+                          return
+                        }
+                        handleFilter('category', category)
+                      }}
+                      className={`px-4 py-2 rounded-xl transition-all ${
+                        categoryParams === category
+                          ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-md'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}>
+                      {category}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <label className="text-sm text-gray-600 mb-2 block">Kota</label>
+                <div className="flex flex-wrap gap-2">
+                  {cities.map((city) => (
+                    <button
+                      key={city}
+                      onClick={() => {
+                        if (city === cityParams) {
+                          handleFilter('city', '')
+                          return
+                        }
+                        handleFilter('city', city)
+                      }}
+                      className={`px-4 py-2 rounded-xl transition-all flex items-center gap-2 ${
+                        cityParams === city
+                          ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-md'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}>
+                      <MapPin className="w-4 h-4" />
+                      {city}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Ticket Grid */}
-        <div className="grid grid-cols-3 gap-6">
-          {tickets.map((ticket) => (
-            <TicketCard key={ticket.id} ticket={ticket} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="grid grid-cols-3 gap-6">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <TicketCardSkeleton key={i} />
+            ))}
+          </div>
+        ) : (
+          <div className="relative">
+            {tickets.length !== 0 ? (
+              <div className="grid grid-cols-3 gap-6">
+                {tickets.map((ticket) => (
+                  <TicketCard key={ticket.id} ticket={ticket} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-16">
+                <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Calendar className="w-12 h-12 text-purple-400" />
+                </div>
+                <h3 className="text-xl text-gray-600 mb-2">Tidak Ada Pertunjukan</h3>
+                <p className="text-gray-500">Coba ubah filter untuk melihat pertunjukan lainnya</p>
+              </div>
+            )}
 
-        {tickets.length === 0 && (
-          <div className="text-center py-16">
-            <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Calendar className="w-12 h-12 text-purple-400" />
-            </div>
-            <h3 className="text-xl text-gray-600 mb-2">Tidak Ada Pertunjukan</h3>
-            <p className="text-gray-500">Coba ubah filter untuk melihat pertunjukan lainnya</p>
+            {/* Fetching indicator */}
+            {fetching && (
+              <div className="absolute bg-white/20 backdrop-blur-sm inset-0 flex items-center justify-center py-8 gap-2">
+                <Loader className="w-5 h-5 animate-spin text-purple-600" />
+                <span className="text-gray-600">Memuat lebih banyak pertunjukan...</span>
+              </div>
+            )}
           </div>
         )}
       </section>
-
-      <Footer />
     </div>
   )
 }
