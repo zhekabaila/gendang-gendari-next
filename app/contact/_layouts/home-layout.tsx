@@ -1,7 +1,5 @@
 'use client'
 
-import { Footer } from '@/app/_components/Footer'
-import { Navbar } from '@/app/_components/Navbar'
 import { Mail, Phone, MapPin, Send, Clock, MessageCircle } from 'lucide-react'
 import { useState } from 'react'
 
@@ -23,8 +21,6 @@ export function ContactLayout() {
 
   return (
     <div className="min-h-screen">
-      <Navbar />
-
       {/* Success Modal */}
       {showSuccess && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
@@ -44,7 +40,7 @@ export function ContactLayout() {
       )}
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 text-white">
+      <section className="relative overflow-hidden h-[600px] flex flex-col items-center justify-center bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 text-white">
         <div className="absolute inset-0 opacity-10">
           <div
             className="absolute inset-0"
@@ -54,7 +50,7 @@ export function ContactLayout() {
             }}
           />
         </div>
-        <div className="relative max-w-7xl mx-auto px-8 py-24 text-center">
+        <div className="relative max-w-7xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-6">
             <MessageCircle className="w-5 h-5" />
             <span>Hubungi Kami</span>
@@ -223,8 +219,6 @@ export function ContactLayout() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   )
 }

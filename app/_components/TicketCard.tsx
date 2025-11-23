@@ -1,5 +1,6 @@
 import { TicketResponse } from '@/lib/types'
 import { Calendar, MapPin, Users, Sparkles } from 'lucide-react'
+import Link from 'next/link'
 
 interface TicketCardProps {
   ticket: TicketResponse
@@ -14,7 +15,7 @@ export function TicketCard({ ticket, featured = false }: TicketCardProps) {
       <div className="relative overflow-hidden h-56">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={'https://placehold.co/600x400'}
+          src={ticket.gambar || 'https://placehold.co/600x400'}
           alt={ticket.judul}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
@@ -92,9 +93,11 @@ export function TicketCard({ ticket, featured = false }: TicketCardProps) {
               Rp {ticket.harga.toLocaleString('id-ID')}
             </div>
           </div>
-          <button className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all">
+          <Link
+            href={`/ticket/${ticket.id}`}
+            className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all">
             Detail
-          </button>
+          </Link>
         </div>
       </div>
     </div>

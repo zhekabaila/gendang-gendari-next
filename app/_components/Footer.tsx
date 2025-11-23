@@ -2,7 +2,7 @@ import { Ticket, Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube } fr
 
 export function Footer() {
   return (
-    <footer className="bg-gradient-to-br from-purple-900 via-indigo-900 to-pink-900 text-white mt-20">
+    <footer className="bg-gradient-to-br from-purple-900 via-indigo-900 to-pink-900 text-white">
       <div className="max-w-7xl mx-auto px-8 py-16">
         <div className="grid grid-cols-4 gap-12">
           {/* Brand Section */}

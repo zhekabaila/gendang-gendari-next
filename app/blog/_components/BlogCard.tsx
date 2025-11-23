@@ -1,5 +1,6 @@
 import { BlogResponse } from '@/lib/types'
 import { Calendar, User, Clock } from 'lucide-react'
+import Link from 'next/link'
 
 interface BlogCardProps {
   blog: BlogResponse
@@ -11,7 +12,7 @@ export function BlogCard({ blog }: BlogCardProps) {
       <div className="relative overflow-hidden h-56">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={'https://placehold.co/600x400'}
+          src={blog.gambar || 'https://placehold.co/600x400'}
           alt={blog.judul}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
@@ -52,7 +53,9 @@ export function BlogCard({ blog }: BlogCardProps) {
               })}
             </span>
           </div>
-          <button className="text-purple-600 hover:text-purple-700 transition-colors">Baca →</button>
+          <Link href={'/blog/' + blog.id} className="text-purple-600 hover:text-purple-700 transition-colors">
+            Baca →
+          </Link>
         </div>
       </div>
     </div>

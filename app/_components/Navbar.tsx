@@ -1,20 +1,23 @@
 'use client'
 
-import { Ticket, Info, Mail, BookOpen, LayoutDashboard } from 'lucide-react'
+import { removeToken } from '@/actions/auth'
+import { Ticket, Info, Mail, BookOpen, LayoutDashboard, LogOut, LogIn, HandCoins } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 interface NavigationProps {
   isAdmin?: boolean
+  isLogin: boolean
 }
 
-export function Navbar({ isAdmin = false }: NavigationProps) {
+export function Navbar({ isAdmin = false, isLogin }: NavigationProps) {
   const pathname = usePathname()
   const navItems = isAdmin
     ? [
         { label: 'Dashboard', page: '/admin', icon: LayoutDashboard },
         { label: 'Tiket', page: '/admin/ticket', icon: Ticket },
-        { label: 'Blog', page: '/admin/blog', icon: BookOpen }
+        { label: 'Blog', page: '/admin/blog', icon: BookOpen },
+        { label: 'Pembelian', page: '/admin/pembelian', icon: HandCoins }
       ]
     : [
         { label: 'Beranda', page: '/', icon: Ticket },
@@ -57,6 +60,31 @@ export function Navbar({ isAdmin = false }: NavigationProps) {
                 </Link>
               )
             })}
+            {isLogin ? (
+              <button
+                className="flex items-center leading-6 gap-2 px-6 py-2.5 rounded-xl transition-all bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg hover:shadow-xl hover:from-red-600 hover:to-orange-600"
+                onClick={() => {
+                  removeToken()
+                }}>
+                <LogOut className="w-4 h-4" />
+                <span>Logout</span>
+              </button>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className={`flex items-center gap-2 px-6 py-2.5 rounded-xl transition-all bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg hover:shadow-xl hover:from-blue-600 hover:to-cyan-600`}>
+                  <LogIn className="w-4 h-4" />
+                  <span>Masuk</span>
+                </Link>
+                <Link
+                  href="/register"
+                  className={`flex items-center gap-2 px-6 py-2.5 rounded-xl transition-all bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg hover:shadow-xl hover:from-green-600 hover:to-emerald-600`}>
+                  <LogIn className="w-4 h-4" />
+                  <span>Daftar</span>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

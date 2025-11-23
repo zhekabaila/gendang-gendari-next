@@ -1,0 +1,363 @@
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter
+} from '@/components/ui/alert-dialog'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { LoaderCircle, X } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { toast } from 'sonner'
+import { AxiosError } from 'axios'
+import { BlogResponse } from '@/lib/types'
+import { useBlogStore } from '@/_stores/use-blog-store'
+import { API } from '@/services'
+import { blogServices } from '@/services/blog'
+import { blogSchema } from '@/schemas/blog'
+import { ScrollArea } from '@/components/ui/scroll-area'
+
+interface IProps {
+  type: 'add' | 'edit'
+  editData: BlogResponse | null
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  fetchBlogsFunc: () => void
+  token: string
+}
+
+const AddBlog = ({ type, editData, open, onOpenChange, fetchBlogsFunc, token }: IProps) => {
+  const [loading, setLoading] = useState(false)
+
+  const { updateBlog } = useBlogStore()
+
+  const form = useForm<z.infer<typeof blogSchema>>({
+    resolver: zodResolver(blogSchema),
+    defaultValues: {
+      judul: '',
+      kategori: [],
+      ringkasan: '',
+      konten: '',
+      penulis: '',
+      tanggal: new Date(),
+      waktuBaca: 0,
+      gambar: ''
+    }
+  })
+
+  const onSubmit = async (values: z.infer<typeof blogSchema>) => {
+    try {
+      setLoading(true)
+
+      // Format data untuk API
+      const payload = {
+        ...values,
+        tanggal: values.tanggal instanceof Date ? values.tanggal.toISOString().split('T')[0] : values.tanggal,
+        kategori: Array.isArray(values.kategori) ? values.kategori : [values.kategori]
+      }
+
+      const response = await API({
+        url: type === 'add' ? blogServices.create : blogServices.update + '/' + editData?.id,
+        method: type === 'add' ? 'POST' : 'PATCH',
+        data: payload,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+
+      const { data }: { data: BlogResponse } = response.data
+
+      if (type === 'add') {
+        fetchBlogsFunc()
+      } else {
+        updateBlog(data.id, data)
+      }
+      toast.success(`Blog ${type === 'add' ? 'added' : 'updated'} successfully`)
+      form.reset()
+      onOpenChange(false)
+    } catch (err) {
+      console.error('Submit error:', err)
+      if (err instanceof AxiosError) {
+        const errorMessage =
+          (err.response?.data as { data?: string; message?: string })?.data ||
+          (err.response?.data as { data?: string; message?: string })?.message ||
+          err.message ||
+          '500: Internal Server Error'
+        toast.error(errorMessage)
+      } else {
+        toast.error(err instanceof Error ? err.message : 'An error occurred')
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (type === 'edit' && editData) {
+      const fields: { name: keyof z.infer<typeof blogSchema>; type: 'string' | 'number' | 'date' | 'array' }[] = [
+        { name: 'judul', type: 'string' },
+        { name: 'kategori', type: 'array' },
+        { name: 'ringkasan', type: 'string' },
+        { name: 'konten', type: 'string' },
+        { name: 'penulis', type: 'string' },
+        { name: 'tanggal', type: 'date' },
+        { name: 'waktuBaca', type: 'number' },
+        { name: 'gambar', type: 'string' }
+      ]
+
+      const defaultValue: Record<string, any> = {
+        string: '',
+        number: 0,
+        date: new Date(),
+        array: []
+      }
+
+      fields.forEach(({ name, type }) => {
+        const value = (editData as Record<string, any>)[name as string] ?? defaultValue[type]
+        form.setValue(name as any, value)
+      })
+    }
+  }, [type, editData, form])
+
+  return (
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
+      <AlertDialogContent className="sm:max-w-4xl w-full mx-auto max-h-[90vh]">
+        <button
+          className="hidden sm:block absolute top-6 right-6"
+          onClick={() => {
+            onOpenChange(false)
+            form.reset()
+          }}>
+          <X />
+        </button>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{type === 'add' ? 'Add New Blog' : 'Edit Blog'}</AlertDialogTitle>
+          <AlertDialogDescription>
+            {type === 'add' ? 'Add a new blog article with all required details.' : 'Edit the blog article details.'}
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+
+        <ScrollArea className="h-[calc(90vh-200px)] pr-4">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 sm:grid-cols-2 gap-4 px-4">
+              {/* Judul */}
+              <FormField
+                control={form.control}
+                name="judul"
+                render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <FormLabel>
+                      Judul<sup className="text-destructive">*</sup>
+                    </FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled={loading} placeholder="Judul Artikel" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Penulis */}
+              <FormField
+                control={form.control}
+                name="penulis"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Penulis<sup className="text-destructive">*</sup>
+                    </FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled={loading} placeholder="Nama Penulis" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Kategori */}
+              <FormField
+                control={form.control}
+                name="kategori"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Kategori<sup className="text-destructive">*</sup>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        disabled={loading}
+                        placeholder="Musik, Tari, dll (pisahkan dengan koma)"
+                        value={Array.isArray(field.value) ? field.value.join(', ') : ''}
+                        onChange={(e) => field.onChange(e.target.value.split(',').map((v) => v.trim()))}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Tanggal */}
+              <FormField
+                control={form.control}
+                name="tanggal"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Tanggal<sup className="text-destructive">*</sup>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...(field as any)}
+                        type="date"
+                        disabled={loading}
+                        value={
+                          field.value instanceof Date
+                            ? field.value.toISOString().split('T')[0]
+                            : typeof field.value === 'string'
+                              ? (field.value as string).split('T')[0]
+                              : ''
+                        }
+                        onChange={(e) => field.onChange(new Date(e.target.value))}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Waktu Baca */}
+              <FormField
+                control={form.control}
+                name="waktuBaca"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Waktu Baca (menit)<sup className="text-destructive">*</sup>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        type="number"
+                        disabled={loading}
+                        placeholder="0"
+                        onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Ringkasan */}
+              <FormField
+                control={form.control}
+                name="ringkasan"
+                render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <FormLabel>
+                      Ringkasan<sup className="text-destructive">*</sup>
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea {...field} disabled={loading} placeholder="Ringkasan artikel (20-500 karakter)" rows={3} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Konten */}
+              <FormField
+                control={form.control}
+                name="konten"
+                render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <FormLabel>
+                      Konten<sup className="text-destructive">*</sup>
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea
+                        {...field}
+                        disabled={loading}
+                        placeholder="Konten lengkap artikel (minimal 50 karakter)"
+                        rows={6}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Gambar */}
+              <FormField
+                control={form.control}
+                name="gambar"
+                render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <FormLabel>
+                      Gambar<sup className="text-destructive">*</sup>
+                    </FormLabel>
+                    <FormControl>
+                      <div className="flex flex-col gap-2">
+                        <Input
+                          type="file"
+                          disabled={loading}
+                          accept="image/*"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0]
+                            if (file) {
+                              const reader = new FileReader()
+                              reader.onload = (event) => {
+                                const result = event.target?.result as string
+                                field.onChange(result)
+                              }
+                              reader.readAsDataURL(file)
+                            }
+                          }}
+                          className="cursor-pointer"
+                        />
+                        {field.value && typeof field.value === 'string' && field.value.startsWith('data:image') && (
+                          <div className="relative w-full h-auto rounded-lg overflow-hidden bg-gray-100">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={field.value} alt="Preview" className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
+        </ScrollArea>
+
+        <AlertDialogFooter className="pt-4">
+          <Button
+            variant="outline"
+            onClick={() => {
+              onOpenChange(false)
+              form.reset()
+            }}
+            className="w-full sm:w-auto"
+            type="button">
+            Cancel
+          </Button>
+          <Button className="w-full sm:w-auto" disabled={loading} onClick={form.handleSubmit(onSubmit)} type="submit">
+            {loading && <LoaderCircle className="w-4 h-4 animate-spin mr-2" />}
+            {type === 'add' ? 'Add Blog' : 'Update Blog'}
+          </Button>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  )
+}
+
+export default AddBlog
