@@ -1,7 +1,7 @@
 'use client'
 
 import { removeToken } from '@/actions/auth'
-import { Ticket, Info, Mail, BookOpen, LayoutDashboard, LogOut, LogIn, HandCoins } from 'lucide-react'
+import { Ticket, Info, Mail, BookOpen, LayoutDashboard, LogOut, LogIn, HandCoins, User } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -61,14 +61,22 @@ export function Navbar({ isAdmin = false, isLogin }: NavigationProps) {
               )
             })}
             {isLogin ? (
-              <button
-                className="flex items-center leading-6 gap-2 px-6 py-2.5 rounded-xl transition-all bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg hover:shadow-xl hover:from-red-600 hover:to-orange-600"
-                onClick={() => {
-                  removeToken()
-                }}>
-                <LogOut className="w-4 h-4" />
-                <span>Logout</span>
-              </button>
+              <>
+                <button
+                  className="flex items-center leading-6 gap-2 px-6 py-2.5 rounded-xl transition-all bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-lg hover:shadow-xl hover:from-red-600 hover:to-orange-600"
+                  onClick={() => {
+                    removeToken()
+                  }}>
+                  <LogOut className="w-4 h-4" />
+                  <span>Logout</span>
+                </button>
+                <Link
+                  href="/profile"
+                  className={`flex items-center justify-center w-10 h-10 rounded-full transition-all bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg hover:shadow-xl hover:from-blue-600 hover:to-cyan-600`}
+                  title="Profile">
+                  <User className="w-5 h-5" />
+                </Link>
+              </>
             ) : (
               <>
                 <Link
