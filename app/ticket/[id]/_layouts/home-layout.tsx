@@ -20,7 +20,7 @@ import { Button } from '@/components/ui/button'
 
 interface TicketDetailPageProps {
   ticketId: string
-  token?: string
+  token?: string | null
 }
 
 export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
@@ -81,12 +81,6 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
     try {
       setSubmitting(true)
 
-      if (!token) {
-        toast.error('Anda harus login untuk membeli tiket')
-        router.push('/login')
-        return
-      }
-
       const payload = {
         nama: values.nama,
         email: values.email,
@@ -99,22 +93,29 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
         ticketId: values.ticketId
       }
 
+      // Prepare headers - include token only if user is logged in
+      const headers: Record<string, string> = {}
+      if (token) {
+        headers.Authorization = `Bearer ${token}`
+      }
+
       const response = await API({
         url: pembeliServices.create,
         method: 'POST',
         data: payload,
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+        headers: Object.keys(headers).length > 0 ? headers : undefined
       })
 
       const { data }: { data: PembeliResponse } = response.data
 
-      toast.success('Pembelian tiket berhasil! Silakan cek email Anda untuk konfirmasi.')
+      toast.success('Pembelian tiket berhasil!')
+
       form.reset()
+
+      // Redirect to purchase detail page
       setTimeout(() => {
-        router.push('/')
-      }, 2000)
+        router.push(`/pembelian/${data.id}`)
+      }, 1000)
     } catch (err) {
       console.error('Submit error:', err)
       if (err instanceof AxiosError) {
