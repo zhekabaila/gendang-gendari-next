@@ -50,12 +50,12 @@ export function ContactLayout() {
             }}
           />
         </div>
-        <div className="relative max-w-7xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-6">
-            <MessageCircle className="w-5 h-5" />
-            <span>Hubungi Kami</span>
+        <div className="relative max-w-7xl mx-auto text-center px-4">
+          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-full mb-4 md:mb-6">
+            <MessageCircle className="w-4 h-4 md:w-5 md:h-5" />
+            <span className="text-sm md:text-base">Hubungi Kami</span>
           </div>
-          <h1 className="text-6xl mb-6">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl mb-4 md:mb-6">
             Ada Pertanyaan?
             <br />
             Kami Siap Membantu
@@ -67,8 +67,8 @@ export function ContactLayout() {
       </section>
 
       {/* Contact Info Cards */}
-      <section className="max-w-7xl mx-auto px-8 mt-16 mb-20">
-        <div className="grid grid-cols-3 gap-6">
+      <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8 md:mt-16 mb-12 md:mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           <div className="bg-white rounded-2xl p-8 shadow-xl text-center">
             <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <Mail className="w-8 h-8 text-white" />
@@ -99,11 +99,11 @@ export function ContactLayout() {
       </section>
 
       {/* Main Content */}
-      <section className="max-w-7xl mx-auto px-8 pb-20">
-        <div className="grid grid-cols-2 gap-12">
+      <section className="max-w-7xl mx-auto px-4 md:px-8 pb-12 md:pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact Form */}
-          <div className="bg-white rounded-3xl p-10 shadow-xl">
-            <h2 className="text-3xl mb-6">Kirim Pesan</h2>
+          <div className="bg-white rounded-2xl md:rounded-3xl p-6 md:p-10 shadow-xl">
+            <h2 className="text-2xl md:text-3xl mb-4 md:mb-6">Kirim Pesan</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm text-gray-700 mb-2">Nama Lengkap</label>

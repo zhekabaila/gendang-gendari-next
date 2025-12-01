@@ -170,36 +170,36 @@ export function HomeLayout() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center">
+      <section className="relative min-h-screen flex items-center justify-center py-20 md:py-0">
         <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 via-purple-500/20 to-indigo-500/20" />
-        <div className="relative max-w-7xl mx-auto px-8 py-20">
+        <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-20">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full mb-8 shadow-lg">
-              <Sparkles className="w-5 h-5 text-purple-600" />
-              <span className="text-purple-900">Platform Tiket Pertunjukan Seni Lokal Terpercaya</span>
+            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-full mb-6 md:mb-8 shadow-lg">
+              <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-purple-600" />
+              <span className="text-purple-900 text-sm md:text-base">Platform Tiket Pertunjukan Seni Lokal Terpercaya</span>
             </div>
 
-            <h1 className="text-6xl mb-8 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl mb-6 md:mb-8 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
               Dukung Seni Lokal,
               <br />
               Pesan Tiket Mudah!
             </h1>
 
-            <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
+            <p className="text-base md:text-xl text-gray-700 mb-6 md:mb-8 max-w-2xl mx-auto">
               Temukan dan nikmati pertunjukan seni tradisional dan kontemporer dari berbagai daerah di Indonesia. Mudah,
               cepat, dan terpercaya.
             </p>
 
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
               <button
                 onClick={() => {
                   document.getElementById('ticket-section')?.scrollIntoView({ behavior: 'smooth' })
                 }}
-                className="px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center gap-2">
-                <Calendar className="w-5 h-5" />
+                className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl md:rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                <Calendar className="w-4 h-4 md:w-5 md:h-5" />
                 Jelajahi Pertunjukan
               </button>
-              <button className="px-8 py-4 bg-white text-purple-700 rounded-2xl shadow-lg hover:shadow-xl transition-all">
+              <button className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-white text-purple-700 rounded-xl md:rounded-2xl shadow-lg hover:shadow-xl transition-all">
                 Tentang Kami
               </button>
             </div>
@@ -230,11 +230,11 @@ export function HomeLayout() {
       </section>
 
       {/* Main Ticket List Section */}
-      <section id="ticket-section" className="max-w-7xl mx-auto px-8 py-16">
-        <div className="mb-8">
-          <div className="flex items-center gap-3">
-            <Calendar className="w-7 h-7 text-purple-600" />
-            <h2 className="text-3xl">Semua Pertunjukan</h2>
+      <section id="ticket-section" className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16">
+        <div className="mb-6 md:mb-8">
+          <div className="flex items-center gap-2 md:gap-3">
+            <Calendar className="w-6 h-6 md:w-7 md:h-7 text-purple-600" />
+            <h2 className="text-2xl md:text-3xl">Semua Pertunjukan</h2>
           </div>
         </div>
 
@@ -242,12 +242,12 @@ export function HomeLayout() {
         {loadingCategories || loadingCities ? (
           <FilterSkeleton />
         ) : (
-          <div className="bg-white rounded-2xl p-6 shadow-lg mb-8">
-            <div className="flex items-center gap-3 mb-4">
-              <Filter className="w-5 h-5 text-gray-600" />
-              <span className="text-gray-600">Filter:</span>
+          <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 shadow-lg mb-6 md:mb-8">
+            <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
+              <Filter className="w-4 h-4 md:w-5 md:h-5 text-gray-600" />
+              <span className="text-gray-600 text-sm md:text-base">Filter:</span>
             </div>
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <div>
                 <label className="text-sm text-gray-600 mb-2 block">Kategori</label>
                 <div className="flex flex-wrap gap-2">
@@ -301,7 +301,7 @@ export function HomeLayout() {
 
         {/* Ticket Grid */}
         {loading ? (
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
               <TicketCardSkeleton key={i} />
             ))}
@@ -309,7 +309,7 @@ export function HomeLayout() {
         ) : (
           <div className="relative">
             {tickets.length !== 0 ? (
-              <div className="grid grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {tickets.map((ticket) => (
                   <TicketCard key={ticket.id} ticket={ticket} />
                 ))}

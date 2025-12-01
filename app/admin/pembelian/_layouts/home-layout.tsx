@@ -154,31 +154,31 @@ export function AdminPembeliManagement({ token }: IProps) {
           type={type}
         />
 
-        <div className="max-w-7xl mx-auto px-8 py-12 mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 mt-16 sm:mt-20">
           {/* Header */}
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
             <div>
-              <h1 className="text-4xl mb-2">Kelola Pembeli</h1>
-              <p className="text-gray-600 text-lg">Kelola data pembelian tiket</p>
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-1 sm:mb-2">Kelola Pembeli</h1>
+              <p className="text-gray-600 text-sm sm:text-base lg:text-lg">Kelola data pembelian tiket</p>
             </div>
             <button
               onClick={() => {
                 setShowAddModal(true)
                 setType('add')
               }}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all">
-              <Plus className="w-5 h-5" />
+              className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all text-sm sm:text-base w-full sm:w-auto">
+              <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
               Tambah Pembeli
             </button>
           </div>
 
           {/* Search & Filter */}
-          <div className="bg-white rounded-2xl p-6 shadow-lg mb-8">
-            <div className="flex items-center gap-3 mb-4">
-              <Filter className="w-5 h-5 text-gray-600" />
-              <span className="text-gray-600">Filter & Cari:</span>
+          <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg mb-6 sm:mb-8">
+            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+              <Filter className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+              <span className="text-gray-600 text-sm sm:text-base">Filter & Cari:</span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {/* Search Input */}
               <div>
                 <label className="text-sm text-gray-600 mb-2 block">Cari Pembeli</label>
@@ -290,12 +290,12 @@ export function AdminPembeliManagement({ token }: IProps) {
             </div>
 
             {filteredPembelis.length === 0 && (
-              <div className="text-center py-16">
-                <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CreditCard className="w-12 h-12 text-purple-400" />
+              <div className="text-center py-8 sm:py-12 lg:py-16 px-4">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <CreditCard className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-purple-400" />
                 </div>
-                <h3 className="text-xl text-gray-600 mb-2">Tidak Ada Data Pembeli</h3>
-                <p className="text-gray-500 mb-6">Coba ubah filter atau tambah pembeli baru</p>
+                <h3 className="text-lg sm:text-xl text-gray-600 mb-1 sm:mb-2">Tidak Ada Data Pembeli</h3>
+                <p className="text-gray-500 text-sm sm:text-base mb-4 sm:mb-6">Coba ubah filter atau tambah pembeli baru</p>
                 <button
                   onClick={() => {
                     setShowAddModal(true)

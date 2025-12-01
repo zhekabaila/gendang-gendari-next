@@ -87,28 +87,30 @@ export function BlogDetailPage({ blogId }: BlogDetailPageProps) {
       </div>
 
       {/* Hero Image */}
-      <section className="max-w-4xl mx-auto px-8 mb-8">
-        <div className="relative h-96 rounded-3xl overflow-hidden shadow-2xl">
+      <section className="max-w-4xl mx-auto px-4 md:px-8 mb-6 md:mb-8">
+        <div className="relative h-64 md:h-96 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={blog.gambar} alt={blog.judul} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-          <div className="absolute bottom-8 left-8 text-white">
-            <div className="flex items-center gap-2 flex-wrap mb-4">
+          <div className="absolute bottom-4 md:bottom-8 left-4 md:left-8 right-4 md:right-8 text-white">
+            <div className="flex items-center gap-2 flex-wrap mb-3 md:mb-4">
               {blog.kategori.map((e) => (
-                <div key={e} className="inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+                <div
+                  key={e}
+                  className="inline-block bg-white/20 backdrop-blur-sm px-3 md:px-4 py-1 md:py-2 rounded-full text-sm md:text-base">
                   {e}
                 </div>
               ))}
             </div>
-            <h1 className="text-5xl font-bold">{blog.judul}</h1>
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold">{blog.judul}</h1>
           </div>
         </div>
       </section>
 
       {/* Main Content */}
-      <section className="max-w-4xl mx-auto px-8 pb-20">
+      <section className="max-w-4xl mx-auto px-4 md:px-8 pb-12 md:pb-20">
         {/* Meta Information */}
-        <div className="bg-white rounded-2xl p-8 shadow-lg mb-8 flex items-center justify-between flex-wrap gap-4">
+        <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-8 shadow-lg mb-6 md:mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
               <User className="w-6 h-6 text-white" />
@@ -147,14 +149,14 @@ export function BlogDetailPage({ blogId }: BlogDetailPageProps) {
         </div>
 
         {/* Ringkasan */}
-        <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold mb-4">Ringkasan</h2>
-          <p className="text-gray-700 leading-relaxed text-lg">{blog.ringkasan}</p>
+        <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-8 shadow-lg mb-6 md:mb-8">
+          <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Ringkasan</h2>
+          <p className="text-gray-700 leading-relaxed text-base md:text-lg">{blog.ringkasan}</p>
         </div>
 
         {/* Konten */}
-        <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-          <h2 className="text-2xl font-bold mb-4">Konten</h2>
+        <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-8 shadow-lg mb-6 md:mb-8">
+          <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Konten</h2>
           <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed whitespace-pre-wrap">{blog.konten}</div>
         </div>
 

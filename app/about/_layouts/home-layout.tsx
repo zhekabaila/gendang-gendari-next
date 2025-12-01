@@ -14,42 +14,42 @@ export function AboutLayout() {
             }}
           />
         </div>
-        <div className="relative max-w-7xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-6">
-            <Heart className="w-5 h-5" />
-            <span>Tentang SeniLokal</span>
+        <div className="relative max-w-7xl mx-auto text-center px-4">
+          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-full mb-4 md:mb-6">
+            <Heart className="w-4 h-4 md:w-5 md:h-5" />
+            <span className="text-sm md:text-base">Tentang SeniLokal</span>
           </div>
-          <h1 className="text-6xl mb-6">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl mb-4 md:mb-6">
             Melestarikan Budaya,
             <br />
             Mendukung Seniman Lokal
           </h1>
-          <p className="text-xl max-w-3xl mx-auto opacity-90">
+          <p className="text-base md:text-xl max-w-3xl mx-auto opacity-90">
             Platform digital yang menghubungkan pecinta seni dengan pertunjukan seni lokal terbaik di seluruh Indonesia
           </p>
         </div>
       </section>
 
       {/* Mission & Vision */}
-      <section className="max-w-7xl mx-auto px-8 py-20">
-        <div className="grid grid-cols-2 gap-12">
-          <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-3xl p-10 shadow-lg">
-            <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-500 rounded-2xl flex items-center justify-center mb-6">
-              <Target className="w-8 h-8 text-white" />
+      <section className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
+          <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl md:rounded-3xl p-6 md:p-10 shadow-lg">
+            <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl md:rounded-2xl flex items-center justify-center mb-4 md:mb-6">
+              <Target className="w-6 h-6 md:w-8 md:h-8 text-white" />
             </div>
-            <h2 className="text-3xl mb-4">Misi Kami</h2>
-            <p className="text-gray-700 text-lg leading-relaxed">
+            <h2 className="text-2xl md:text-3xl mb-3 md:mb-4">Misi Kami</h2>
+            <p className="text-gray-700 text-base md:text-lg leading-relaxed">
               Memudahkan akses masyarakat terhadap pertunjukan seni lokal berkualitas, sekaligus memberikan platform yang
               efektif bagi seniman dan penyelenggara untuk menjangkau audiens yang lebih luas.
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-3xl p-10 shadow-lg">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6">
-              <Sparkles className="w-8 h-8 text-white" />
+          <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl md:rounded-3xl p-6 md:p-10 shadow-lg">
+            <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-xl md:rounded-2xl flex items-center justify-center mb-4 md:mb-6">
+              <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-white" />
             </div>
-            <h2 className="text-3xl mb-4">Visi Kami</h2>
-            <p className="text-gray-700 text-lg leading-relaxed">
+            <h2 className="text-2xl md:text-3xl mb-3 md:mb-4">Visi Kami</h2>
+            <p className="text-gray-700 text-base md:text-lg leading-relaxed">
               Menjadi platform terdepan dalam mempromosikan dan melestarikan seni budaya lokal Indonesia, menjembatani
               tradisi dengan teknologi modern untuk generasi masa depan.
             </p>
@@ -58,14 +58,14 @@ export function AboutLayout() {
       </section>
 
       {/* Values */}
-      <section className="bg-white py-20">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl mb-4">Nilai-Nilai Kami</h2>
-            <p className="text-xl text-gray-600">Prinsip yang memandu setiap langkah kami</p>
+      <section className="bg-white py-12 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <div className="text-center mb-10 md:mb-16">
+            <h2 className="text-3xl md:text-4xl mb-3 md:mb-4">Nilai-Nilai Kami</h2>
+            <p className="text-lg md:text-xl text-gray-600">Prinsip yang memandu setiap langkah kami</p>
           </div>
 
-          <div className="grid grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             <div className="text-center">
               <div className="w-20 h-20 bg-gradient-to-br from-pink-100 to-pink-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Heart className="w-10 h-10 text-pink-600" />
@@ -102,11 +102,11 @@ export function AboutLayout() {
       </section>
 
       {/* Our Story */}
-      <section className="max-w-7xl mx-auto px-8 py-20">
-        <div className="grid grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="text-4xl mb-6">Cerita Kami</h2>
-            <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
+      <section className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
+          <div className="order-2 lg:order-1">
+            <h2 className="text-3xl md:text-4xl mb-4 md:mb-6">Cerita Kami</h2>
+            <div className="space-y-4 text-gray-700 text-base md:text-lg leading-relaxed">
               <p>
                 SeniLokal lahir dari keprihatinan terhadap minimnya akses masyarakat terhadap pertunjukan seni lokal. Banyak
                 pertunjukan berkualitas tinggi yang hanya diketahui oleh kalangan terbatas, sementara seniman kesulitan
@@ -125,62 +125,62 @@ export function AboutLayout() {
             </div>
           </div>
 
-          <div className="relative">
-            <div className="absolute -inset-4 bg-gradient-to-br from-pink-200 to-purple-200 rounded-3xl blur-2xl opacity-50" />
+          <div className="relative order-1 lg:order-2">
+            <div className="absolute -inset-4 bg-gradient-to-br from-pink-200 to-purple-200 rounded-2xl md:rounded-3xl blur-2xl opacity-50" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=800"
               alt="Seni Budaya Indonesia"
-              className="relative w-full h-96 object-cover rounded-3xl shadow-2xl"
+              className="relative w-full h-64 md:h-96 object-cover rounded-2xl md:rounded-3xl shadow-2xl"
             />
           </div>
         </div>
       </section>
 
       {/* Impact Stats */}
-      <section className="bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 text-white py-20">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl mb-4">Dampak Kami</h2>
-            <p className="text-xl opacity-90">Angka-angka yang membanggakan</p>
+      <section className="bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 text-white py-12 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl mb-3 md:mb-4">Dampak Kami</h2>
+            <p className="text-lg md:text-xl opacity-90">Angka-angka yang membanggakan</p>
           </div>
 
-          <div className="grid grid-cols-4 gap-8">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
-              <Award className="w-12 h-12 mx-auto mb-4" />
-              <div className="text-5xl mb-2">500+</div>
-              <div className="text-lg opacity-90">Pertunjukan Terfasilitasi</div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-8 text-center">
+              <Award className="w-8 h-8 md:w-12 md:h-12 mx-auto mb-2 md:mb-4" />
+              <div className="text-3xl md:text-5xl mb-1 md:mb-2">500+</div>
+              <div className="text-sm md:text-lg opacity-90">Pertunjukan Terfasilitasi</div>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
-              <Users className="w-12 h-12 mx-auto mb-4" />
-              <div className="text-5xl mb-2">50K+</div>
-              <div className="text-lg opacity-90">Penonton Bahagia</div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-8 text-center">
+              <Users className="w-8 h-8 md:w-12 md:h-12 mx-auto mb-2 md:mb-4" />
+              <div className="text-3xl md:text-5xl mb-1 md:mb-2">50K+</div>
+              <div className="text-sm md:text-lg opacity-90">Penonton Bahagia</div>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
-              <Globe className="w-12 h-12 mx-auto mb-4" />
-              <div className="text-5xl mb-2">15+</div>
-              <div className="text-lg opacity-90">Kota di Indonesia</div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-8 text-center">
+              <Globe className="w-8 h-8 md:w-12 md:h-12 mx-auto mb-2 md:mb-4" />
+              <div className="text-3xl md:text-5xl mb-1 md:mb-2">15+</div>
+              <div className="text-sm md:text-lg opacity-90">Kota di Indonesia</div>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
-              <Heart className="w-12 h-12 mx-auto mb-4" />
-              <div className="text-5xl mb-2">200+</div>
-              <div className="text-lg opacity-90">Seniman Terdukung</div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-8 text-center">
+              <Heart className="w-8 h-8 md:w-12 md:h-12 mx-auto mb-2 md:mb-4" />
+              <div className="text-3xl md:text-5xl mb-1 md:mb-2">200+</div>
+              <div className="text-sm md:text-lg opacity-90">Seniman Terdukung</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Team */}
-      <section className="max-w-7xl mx-auto px-8 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl mb-4">Tim Kami</h2>
-          <p className="text-xl text-gray-600">Orang-orang di balik SeniLokal</p>
+      <section className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-20">
+        <div className="text-center mb-10 md:mb-16">
+          <h2 className="text-3xl md:text-4xl mb-3 md:mb-4">Tim Kami</h2>
+          <p className="text-lg md:text-xl text-gray-600">Orang-orang di balik SeniLokal</p>
         </div>
 
-        <div className="grid grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
           {[
             {
               name: 'Andi Wijaya',
@@ -221,8 +221,8 @@ export function AboutLayout() {
       </section>
 
       {/* CTA Section */}
-      <section className="max-w-7xl mx-auto px-8 py-20">
-        <div className="bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-500 rounded-3xl p-16 text-center text-white relative overflow-hidden">
+      <section className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-20">
+        <div className="bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-500 rounded-2xl md:rounded-3xl p-8 md:p-16 text-center text-white relative overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <div
               className="absolute inset-0"
@@ -233,15 +233,15 @@ export function AboutLayout() {
             />
           </div>
           <div className="relative">
-            <h2 className="text-4xl mb-4">Bergabunglah Bersama Kami</h2>
-            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl mb-3 md:mb-4">Bergabunglah Bersama Kami</h2>
+            <p className="text-base md:text-xl mb-6 md:mb-8 opacity-90 max-w-2xl mx-auto">
               Mari bersama-sama melestarikan seni dan budaya Indonesia untuk generasi mendatang
             </p>
-            <div className="flex items-center justify-center gap-4">
-              <button className="px-8 py-4 bg-white text-purple-700 rounded-2xl shadow-lg hover:shadow-xl transition-all">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
+              <button className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-white text-purple-700 rounded-xl md:rounded-2xl shadow-lg hover:shadow-xl transition-all">
                 Jelajahi Pertunjukan
               </button>
-              <button className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white rounded-2xl hover:bg-white/30 transition-all">
+              <button className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-white/20 backdrop-blur-sm text-white rounded-xl md:rounded-2xl hover:bg-white/30 transition-all">
                 Hubungi Kami
               </button>
             </div>

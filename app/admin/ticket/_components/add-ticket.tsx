@@ -134,38 +134,42 @@ const AddTicket = ({ type, editData, open, onOpenChange, fetchBadwordsFunc, toke
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent className="sm:max-w-4xl w-full mx-auto max-h-[90vh]">
+      <AlertDialogContent className="max-w-[95vw] sm:max-w-2xl lg:max-w-4xl w-full mx-auto max-h-[90vh] p-4 sm:p-6 rounded-xl">
         <button
-          className="hidden sm:block absolute top-6 right-6"
+          className="absolute top-3 right-3 sm:top-6 sm:right-6 p-1"
           onClick={() => {
             onOpenChange(false)
             form.reset()
           }}>
-          <X />
+          <X className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
-        <AlertDialogHeader>
-          <AlertDialogTitle>{type === 'add' ? 'Add New Ticket' : 'Edit Ticket'}</AlertDialogTitle>
-          <AlertDialogDescription>
+        <AlertDialogHeader className="pr-8">
+          <AlertDialogTitle className="text-lg sm:text-xl">
+            {type === 'add' ? 'Add New Ticket' : 'Edit Ticket'}
+          </AlertDialogTitle>
+          <AlertDialogDescription className="text-xs sm:text-sm">
             {type === 'add' ? 'Add a new ticket event with all required details.' : 'Edit the ticket event details.'}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
-        <ScrollArea className="h-[calc(90vh-200px)] pr-4">
+        <ScrollArea className="max-h-[50vh] pr-2 sm:pr-4">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 sm:grid-cols-2 gap-4 px-4">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 px-1 sm:px-4">
               {/* Judul */}
               <FormField
                 control={form.control}
                 name="judul"
                 render={({ field }) => (
-                  <FormItem className="col-span-2">
-                    <FormLabel>
+                  <FormItem className="col-span-2 sm:col-span-1">
+                    <FormLabel className="text-sm sm:text-base">
                       Judul<sup className="text-destructive">*</sup>
                     </FormLabel>
                     <FormControl>
-                      <Input {...field} disabled={loading} placeholder="Nama Pertunjukan" />
+                      <Input {...field} disabled={loading} placeholder="Nama Pertunjukan" className="text-sm sm:text-base" />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-xs sm:text-sm" />
                   </FormItem>
                 )}
               />
@@ -175,7 +179,7 @@ const AddTicket = ({ type, editData, open, onOpenChange, fetchBadwordsFunc, toke
                 control={form.control}
                 name="penyelenggara"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="col-span-2 sm:col-span-1">
                     <FormLabel>
                       Penyelenggara<sup className="text-destructive">*</sup>
                     </FormLabel>
@@ -192,7 +196,7 @@ const AddTicket = ({ type, editData, open, onOpenChange, fetchBadwordsFunc, toke
                 control={form.control}
                 name="kategori"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="col-span-2 sm:col-span-1">
                     <FormLabel>
                       Kategori<sup className="text-destructive">*</sup>
                     </FormLabel>
@@ -215,7 +219,7 @@ const AddTicket = ({ type, editData, open, onOpenChange, fetchBadwordsFunc, toke
                 control={form.control}
                 name="tanggal"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="col-span-2 sm:col-span-1">
                     <FormLabel>
                       Tanggal<sup className="text-destructive">*</sup>
                     </FormLabel>
@@ -244,7 +248,7 @@ const AddTicket = ({ type, editData, open, onOpenChange, fetchBadwordsFunc, toke
                 control={form.control}
                 name="waktu"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="col-span-2 sm:col-span-1">
                     <FormLabel>
                       Waktu<sup className="text-destructive">*</sup>
                     </FormLabel>
@@ -261,7 +265,7 @@ const AddTicket = ({ type, editData, open, onOpenChange, fetchBadwordsFunc, toke
                 control={form.control}
                 name="venue"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="col-span-2 sm:col-span-1">
                     <FormLabel>
                       Venue<sup className="text-destructive">*</sup>
                     </FormLabel>
@@ -278,7 +282,7 @@ const AddTicket = ({ type, editData, open, onOpenChange, fetchBadwordsFunc, toke
                 control={form.control}
                 name="kota"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="col-span-2 sm:col-span-1">
                     <FormLabel>
                       Kota<sup className="text-destructive">*</sup>
                     </FormLabel>
@@ -295,7 +299,7 @@ const AddTicket = ({ type, editData, open, onOpenChange, fetchBadwordsFunc, toke
                 control={form.control}
                 name="harga"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="col-span-2 sm:col-span-1">
                     <FormLabel>
                       Harga (Rp)<sup className="text-destructive">*</sup>
                     </FormLabel>
@@ -318,7 +322,7 @@ const AddTicket = ({ type, editData, open, onOpenChange, fetchBadwordsFunc, toke
                 control={form.control}
                 name="kapasitas"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="col-span-2 sm:col-span-2">
                     <FormLabel>
                       Kapasitas<sup className="text-destructive">*</sup>
                     </FormLabel>
@@ -397,19 +401,23 @@ const AddTicket = ({ type, editData, open, onOpenChange, fetchBadwordsFunc, toke
           </Form>
         </ScrollArea>
 
-        <AlertDialogFooter className="pt-4">
+        <AlertDialogFooter className="pt-3 sm:pt-4 flex-col-reverse sm:flex-row gap-2 sm:gap-0">
           <Button
             variant="outline"
             onClick={() => {
               onOpenChange(false)
               form.reset()
             }}
-            className="w-full sm:w-auto"
+            className="w-full sm:w-auto text-sm sm:text-base"
             type="button">
             Cancel
           </Button>
-          <Button className="w-full sm:w-auto" disabled={loading} onClick={form.handleSubmit(onSubmit)} type="submit">
-            {loading && <LoaderCircle className="w-4 h-4 animate-spin mr-2" />}
+          <Button
+            className="w-full sm:w-auto text-sm sm:text-base"
+            disabled={loading}
+            onClick={form.handleSubmit(onSubmit)}
+            type="submit">
+            {loading && <LoaderCircle className="w-3 h-3 sm:w-4 sm:h-4 animate-spin mr-2" />}
             {type === 'add' ? 'Add Ticket' : 'Update Ticket'}
           </Button>
         </AlertDialogFooter>

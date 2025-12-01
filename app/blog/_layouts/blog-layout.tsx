@@ -137,12 +137,12 @@ export function BlogLayout() {
             }}
           />
         </div>
-        <div className="relative max-w-7xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-6">
-            <BookOpen className="w-5 h-5" />
-            <span>Blog & Artikel</span>
+        <div className="relative max-w-7xl mx-auto text-center px-4">
+          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-full mb-4 md:mb-6">
+            <BookOpen className="w-4 h-4 md:w-5 md:h-5" />
+            <span className="text-sm md:text-base">Blog & Artikel</span>
           </div>
-          <h1 className="text-6xl mb-6">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl mb-4 md:mb-6">
             Cerita Seni
             <br />& Budaya Indonesia
           </h1>
@@ -158,9 +158,9 @@ export function BlogLayout() {
           <FeaturedArticleSkeleton />
         </section>
       ) : blogs.length > 0 ? (
-        <section className="max-w-7xl mx-auto px-8 mt-16 mb-16">
-          <div className="bg-white rounded-3xl overflow-hidden shadow-2xl grid grid-cols-2 cursor-pointer group hover:shadow-3xl transition-all">
-            <div className="relative h-96 overflow-hidden">
+        <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8 md:mt-16 mb-8 md:mb-16">
+          <div className="bg-white rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-2 cursor-pointer group hover:shadow-3xl transition-all">
+            <div className="relative h-64 md:h-96 overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={blogs[0].gambar || 'https://placehold.co/600x400'}
@@ -171,17 +171,21 @@ export function BlogLayout() {
                 Featured
               </div>
             </div>
-            <div className="p-12 flex flex-col justify-center">
+            <div className="p-6 md:p-12 flex flex-col justify-center">
               {blogs[0].kategori.length > 0 && (
-                <div className="flex items-center flex-wrap gap-2 mb-4">
+                <div className="flex items-center flex-wrap gap-2 mb-3 md:mb-4">
                   {blogs[0].kategori.map((e) => (
-                    <div key={e} className="bg-purple-100 text-purple-700 backdrop-blur-sm px-4 py-1 text-sm rounded-full">
+                    <div
+                      key={e}
+                      className="bg-purple-100 text-purple-700 backdrop-blur-sm px-3 md:px-4 py-1 text-xs md:text-sm rounded-full">
                       <span>{e}</span>
                     </div>
                   ))}
                 </div>
               )}
-              <h2 className="text-4xl mb-4 group-hover:text-purple-600 transition-colors">{blogs[0].judul}</h2>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl mb-3 md:mb-4 group-hover:text-purple-600 transition-colors">
+                {blogs[0].judul}
+              </h2>
               <p className="text-gray-600 text-lg mb-6 leading-relaxed">{blogs[0].ringkasan}</p>
               <div className="flex items-center gap-4 text-gray-500">
                 <span>{blogs[0].penulis}</span>
@@ -196,12 +200,12 @@ export function BlogLayout() {
       ) : null}
 
       {/* Search & Filter */}
-      <section className="max-w-7xl mx-auto px-8 mb-12">
+      <section className="max-w-7xl mx-auto px-4 md:px-8 mb-8 md:mb-12">
         {loadingCategories ? (
           <FilterSkeleton />
         ) : (
-          <div className="bg-white rounded-2xl p-6 shadow-lg">
-            <div className="grid grid-cols-2 gap-6">
+          <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 shadow-lg">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               {/* Search */}
               <div className="relative">
                 <InputSearch
@@ -246,21 +250,21 @@ export function BlogLayout() {
       </section>
 
       {/* Blog Grid */}
-      <section className="max-w-7xl mx-auto px-8 pb-20">
-        <div className="flex items-center gap-3 mb-8">
-          <BookOpen className="w-7 h-7 text-purple-600" />
-          <h2 className="text-3xl">Semua Artikel</h2>
+      <section className="max-w-7xl mx-auto px-4 md:px-8 pb-12 md:pb-20">
+        <div className="flex items-center gap-2 md:gap-3 mb-6 md:mb-8">
+          <BookOpen className="w-6 h-6 md:w-7 md:h-7 text-purple-600" />
+          <h2 className="text-2xl md:text-3xl">Semua Artikel</h2>
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             {Array.from({ length: 6 }).map((_, i) => (
               <BlogCardSkeleton key={i} />
             ))}
           </div>
         ) : blogs.length > 0 ? (
           <div className="relative">
-            <div className="grid grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {blogs.map((blog) => (
                 <BlogCard key={blog.id} blog={blog} />
               ))}

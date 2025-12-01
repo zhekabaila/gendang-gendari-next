@@ -225,14 +225,14 @@ export function ProfilePage({ token }: ProfilePageProps) {
       </div>
 
       {/* Profile Header */}
-      <section className="max-w-6xl mx-auto px-8 mb-8">
-        <div className="bg-white rounded-2xl p-8 shadow-lg">
-          <div className="flex items-start gap-6">
-            <div className="w-24 h-24 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
-              <User className="w-12 h-12 text-white" />
+      <section className="max-w-6xl mx-auto px-4 md:px-8 mb-6 md:mb-8">
+        <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-8 shadow-lg">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 md:gap-6">
+            <div className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <User className="w-10 h-10 md:w-12 md:h-12 text-white" />
             </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">{profile.nama}</h1>
+            <div className="flex-1 text-center sm:text-left">
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{profile.nama}</h1>
               <p className="text-gray-600 mb-2">@{profile.username}</p>
               <p className="text-gray-600">Member sejak {new Date(profile.createdAt).toLocaleDateString('id-ID')}</p>
             </div>
@@ -241,13 +241,13 @@ export function ProfilePage({ token }: ProfilePageProps) {
       </section>
 
       {/* Main Content */}
-      <section className="max-w-6xl mx-auto px-8 pb-20">
-        <div className="grid grid-cols-3 gap-8">
+      <section className="max-w-6xl mx-auto px-4 md:px-8 pb-12 md:pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
           {/* Left Column - User Info */}
-          <div className="col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-6 md:space-y-8 order-2 lg:order-1">
             {/* Informasi Pribadi */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h2 className="text-2xl font-bold mb-6">Informasi Pribadi</h2>
+            <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-8 shadow-lg">
+              <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Informasi Pribadi</h2>
               <div className="space-y-4">
                 {/* Email */}
                 <div className="flex items-start gap-4 pb-4 border-b border-gray-200">
@@ -296,8 +296,8 @@ export function ProfilePage({ token }: ProfilePageProps) {
             </div>
 
             {/* Pesanan Tiket */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h2 className="text-2xl font-bold mb-6">Pesanan Tiket Anda ({profile.pembeli.length})</h2>
+            <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-8 shadow-lg">
+              <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Pesanan Tiket Anda ({profile.pembeli.length})</h2>
 
               {profile.pembeli.length > 0 ? (
                 <div className="space-y-6">
@@ -315,7 +315,7 @@ export function ProfilePage({ token }: ProfilePageProps) {
                         </button>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 md:p-6">
                         {/* Ticket Image */}
                         <div className="relative h-40 bg-gray-200 rounded-lg overflow-hidden">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -396,8 +396,8 @@ export function ProfilePage({ token }: ProfilePageProps) {
           </div>
 
           {/* Right Column - Ringkasan Pesanan */}
-          <div className="col-span-1">
-            <div className="bg-white rounded-2xl p-8 shadow-2xl sticky top-24 space-y-6">
+          <div className="lg:col-span-1 order-1 lg:order-2">
+            <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-8 shadow-2xl lg:sticky lg:top-24 space-y-4 md:space-y-6">
               {/* Statistik Pesanan */}
               <div>
                 <h3 className="text-lg font-bold mb-4">Ringkasan Pesanan</h3>

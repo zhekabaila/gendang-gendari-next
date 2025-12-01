@@ -377,7 +377,7 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 mt-20">
+    <div className="min-h-screen bg-gray-50 py-4 md:py-8 mt-16 md:mt-20">
       <div className="max-w-2xl mx-auto px-4">
         {/* Download Button */}
         <div className="mb-6 flex justify-end">
@@ -390,26 +390,26 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
         </div>
 
         {/* Preview Card (HTML version for display) */}
-        <div className="w-full max-w-2xl mx-auto bg-white rounded-3xl overflow-hidden shadow-lg">
+        <div className="w-full max-w-2xl mx-auto bg-white rounded-2xl md:rounded-3xl overflow-hidden shadow-lg">
           {/* HEADER */}
-          <div className="bg-gradient-to-r from-pink-500 to-purple-600 px-8 py-6 relative overflow-hidden">
+          <div className="bg-gradient-to-r from-pink-500 to-purple-600 px-4 md:px-8 py-4 md:py-6 relative overflow-hidden">
             <div className="absolute w-48 h-48 rounded-full bg-white/10 top-0 right-0 -mr-24 -mt-24" />
             <div className="absolute w-32 h-32 rounded-full bg-white/5 bottom-0 left-0 -ml-16 -mb-16" />
 
-            <div className="relative z-10 flex justify-between items-center">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-pink-500 to-purple-600" />
+            <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+              <div className="flex items-center gap-2 md:gap-3">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white flex items-center justify-center shadow-md">
+                  <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-r from-pink-500 to-purple-600" />
                 </div>
                 <div>
-                  <div className="text-xl font-bold text-white">SeniLokal</div>
+                  <div className="text-lg md:text-xl font-bold text-white">SeniLokal</div>
                   <div className="text-xs text-white/90">E-Ticket</div>
                 </div>
               </div>
 
-              <div className="text-right">
+              <div className="text-left sm:text-right">
                 <div className="text-xs text-white/80 mb-1">Booking ID</div>
-                <div className="flex justify-center items-center bg-white/20 px-2.5 py-1 rounded h-7">
+                <div className="flex justify-start sm:justify-center items-center bg-white/20 px-2.5 py-1 rounded h-7">
                   <p className="text-xs font-bold text-white font-mono">{pembelian.id}</p>
                 </div>
               </div>
@@ -417,9 +417,9 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
           </div>
 
           {/* MAIN CONTENT */}
-          <div className="p-6">
-            <div className="bg-gray-50 rounded-lg p-4 mb-5">
-              <h1 className="text-lg font-bold text-gray-900 mb-2">{pembelian.ticket.judul}</h1>
+          <div className="p-4 md:p-6">
+            <div className="bg-gray-50 rounded-lg p-3 md:p-4 mb-4 md:mb-5">
+              <h1 className="text-base md:text-lg font-bold text-gray-900 mb-2">{pembelian.ticket.judul}</h1>
               <div className="flex gap-1.5 flex-wrap">
                 {pembelian.ticket.kategori.map((category, index) => {
                   const bgColor = categoryColors[index % categoryColors.length]
@@ -438,9 +438,9 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
               </div>
             </div>
 
-            <div className="mb-5">
-              <h2 className="text-sm font-bold text-gray-900 mb-2.5">Detail Pertunjukan</h2>
-              <div className="grid grid-cols-2 gap-2.5">
+            <div className="mb-4 md:mb-5">
+              <h2 className="text-xs md:text-sm font-bold text-gray-900 mb-2 md:mb-2.5">Detail Pertunjukan</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-2.5">
                 <InfoCard
                   icon="📅"
                   label="Tanggal"
@@ -458,18 +458,18 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
               </div>
             </div>
 
-            <div className="mb-5">
-              <h2 className="text-sm font-bold text-gray-900 mb-2.5">Informasi Pembeli</h2>
-              <div className="bg-gray-50 rounded-lg p-4">
+            <div className="mb-4 md:mb-5">
+              <h2 className="text-xs md:text-sm font-bold text-gray-900 mb-2 md:mb-2.5">Informasi Pembeli</h2>
+              <div className="bg-gray-50 rounded-lg p-3 md:p-4">
                 <BuyerInfo icon="👤" label="Nama Lengkap" value={pembelian.nama} />
                 <BuyerInfo icon="📧" label="Email" value={pembelian.email} />
                 <BuyerInfo icon="📱" label="No. Handphone" value={pembelian.noHandphone} />
               </div>
             </div>
 
-            <div className="mb-5">
-              <h2 className="text-sm font-bold text-gray-900 mb-2.5">Rincian Pembelian</h2>
-              <div className="bg-white border border-gray-200 rounded-lg p-4">
+            <div className="mb-4 md:mb-5">
+              <h2 className="text-xs md:text-sm font-bold text-gray-900 mb-2 md:mb-2.5">Rincian Pembelian</h2>
+              <div className="bg-white border border-gray-200 rounded-lg p-3 md:p-4">
                 <PaymentRow label="Jumlah Tiket" value={`${pembelian.jumlahTiket}x`} />
                 <PaymentRow label="Harga per Tiket" value={`Rp ${pembelian.ticket.harga.toLocaleString('id-ID')}`} />
                 <div className="flex justify-between items-center mb-3">
@@ -492,7 +492,7 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
             </div>
           </div>
 
-          <div className="bg-gray-50 px-8 py-5">
+          <div className="bg-gray-50 px-4 md:px-8 py-4 md:py-5">
             <div className="text-center text-xs text-gray-500 mb-3">
               Dipesan pada:{' '}
               {new Date(pembelian.createdAt).toLocaleDateString('id-ID', {
