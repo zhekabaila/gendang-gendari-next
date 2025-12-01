@@ -40,7 +40,7 @@ const RegisterLayout = () => {
 
       const response = await API({
         method: 'POST',
-        url: '/register',
+        url: '/auth/register',
         data: {
           nama: data.nama,
           umur: data.umur,
