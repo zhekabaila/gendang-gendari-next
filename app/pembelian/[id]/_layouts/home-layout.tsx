@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   header: {
-    backgroundColor: '#ec4899',
+    backgroundColor: '#3b82f6',
     padding: 12,
     position: 'relative'
   },
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
     borderRadius: 9,
-    backgroundColor: '#a855f7'
+    backgroundColor: '#3b82f6'
   },
   logoText: {
     fontSize: 12,
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
   totalValue: {
     fontSize: 12,
     fontWeight: 'bold',
-    color: '#ec4899'
+    color: '#3b82f6'
   },
   footer: {
     backgroundColor: '#f9fafb',
@@ -343,7 +343,7 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <LoaderCircle className="w-12 h-12 animate-spin text-purple-600 mx-auto mb-4" />
+          <LoaderCircle className="w-12 h-12 animate-spin text-blue-600 mx-auto mb-4" />
           <p className="text-gray-600">Memuat detail tiket...</p>
         </div>
       </div>
@@ -355,7 +355,7 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
       <div className="min-h-screen">
         <div className="max-w-7xl mx-auto px-8 py-20 text-center">
           <h2 className="text-3xl mb-4">Pembelian Tidak Ditemukan</h2>
-          <Button onClick={() => router.push('/')} className="bg-gradient-to-r from-pink-500 to-purple-600">
+          <Button onClick={() => router.push('/')} className="bg-gradient-to-r from-blue-500 to-purple-600">
             Kembali ke Beranda
           </Button>
         </div>
@@ -363,14 +363,14 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
     )
   }
 
-  const categoryColors = ['#ec4899', '#a855f7', '#3b82f6']
+  const categoryColors = ['#3b82f6', '#3b82f6', '#3b82f6']
   const totalAmount = pembelian.ticket.harga * pembelian.jumlahTiket
 
   const getPaymentColor = (method: string) => {
     const colors: Record<string, string> = {
       transfer: '#3b82f6',
       cash: '#22c55e',
-      'kartu kredit': '#a855f7',
+      'kartu kredit': '#3b82f6',
       'e-wallet': '#f97316'
     }
     return colors[method] || '#6b7280'
@@ -384,7 +384,7 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
           <Button
             onClick={handleDownloadPDF}
             disabled={submitting}
-            className="bg-gradient-to-r from-pink-500 to-purple-600 text-white">
+            className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
             {submitting ? <LoaderCircle className="w-4 h-4" /> : <Download className="w-4 h-4" />}
           </Button>
         </div>
@@ -392,17 +392,17 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
         {/* Preview Card (HTML version for display) */}
         <div className="w-full max-w-2xl mx-auto bg-white rounded-2xl md:rounded-3xl overflow-hidden shadow-lg">
           {/* HEADER */}
-          <div className="bg-gradient-to-r from-pink-500 to-purple-600 px-4 md:px-8 py-4 md:py-6 relative overflow-hidden">
+          <div className="bg-gradient-to-r from-blue-500 to-purple-600 px-4 md:px-8 py-4 md:py-6 relative overflow-hidden">
             <div className="absolute w-48 h-48 rounded-full bg-white/10 top-0 right-0 -mr-24 -mt-24" />
             <div className="absolute w-32 h-32 rounded-full bg-white/5 bottom-0 left-0 -ml-16 -mb-16" />
 
             <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
               <div className="flex items-center gap-2 md:gap-3">
                 <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white flex items-center justify-center shadow-md">
-                  <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-r from-pink-500 to-purple-600" />
+                  <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-blue-500" />
                 </div>
                 <div>
-                  <div className="text-lg md:text-xl font-bold text-white">SeniLokal</div>
+                  <div className="text-lg md:text-xl font-bold text-white">Tixly</div>
                   <div className="text-xs text-white/90">E-Ticket</div>
                 </div>
               </div>
@@ -450,11 +450,11 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
                     month: 'long',
                     year: 'numeric'
                   })}
-                  bgColor="#ec4899"
+                  bgColor="#3b82f6"
                 />
-                <InfoCard icon="🕐" label="Waktu" value={pembelian.ticket.waktu} bgColor="#a855f7" />
+                <InfoCard icon="🕐" label="Waktu" value={pembelian.ticket.waktu} bgColor="#3b82f6" />
                 <InfoCard icon="📍" label="Venue" value={pembelian.ticket.venue} bgColor="#3b82f6" />
-                <InfoCard icon="🏢" label="Penyelenggara" value={pembelian.ticket.penyelenggara} bgColor="#8b5cf6" />
+                <InfoCard icon="🏢" label="Penyelenggara" value={pembelian.ticket.penyelenggara} bgColor="#3b82f6" />
               </div>
             </div>
 
@@ -486,7 +486,7 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
                 <div className="border-t border-gray-200 my-3" />
                 <div className="flex justify-between items-center">
                   <span className="text-sm font-semibold text-gray-900">Total Pembayaran</span>
-                  <span className="text-base font-bold text-pink-600">Rp {totalAmount.toLocaleString('id-ID')}</span>
+                  <span className="text-base font-bold text-blue-600">Rp {totalAmount.toLocaleString('id-ID')}</span>
                 </div>
               </div>
             </div>
@@ -511,7 +511,7 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
                 <li>Tidak dapat dikembalikan atau ditukar</li>
               </ul>
             </div>
-            <div className="text-center text-xs text-blue-500 font-medium">Hubungi kami: support@senilokal.id</div>
+            <div className="text-center text-xs text-blue-500 font-medium">Hubungi kami: support@tixly.com</div>
           </div>
         </div>
       </div>
@@ -520,15 +520,15 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
 }
 
 // PDF Component - OPTIMIZED untuk 1 halaman
-const TicketPDF = ({ pembelian }: { pembelian: PembeliResponse }) => {
-  const categoryColors = ['#ec4899', '#a855f7', '#3b82f6']
+export const TicketPDF = ({ pembelian }: { pembelian: PembeliResponse }) => {
+  const categoryColors = ['#3b82f6', '#3b82f6', '#3b82f6']
   const totalAmount = pembelian.ticket.harga * pembelian.jumlahTiket
 
   const getPaymentColor = (method: string) => {
     const colors: Record<string, string> = {
       transfer: '#3b82f6',
       cash: '#22c55e',
-      'kartu kredit': '#a855f7',
+      'kartu kredit': '#3b82f6',
       'e-wallet': '#f97316'
     }
     return colors[method] || '#6b7280'
@@ -546,7 +546,7 @@ const TicketPDF = ({ pembelian }: { pembelian: PembeliResponse }) => {
                   <View style={styles.logoInner} />
                 </View>
                 <View>
-                  <Text style={styles.logoText}>SeniLokal</Text>
+                  <Text style={styles.logoText}>Tixly</Text>
                   <Text style={styles.logoSubtext}>E-Ticket</Text>
                 </View>
               </View>
@@ -582,8 +582,8 @@ const TicketPDF = ({ pembelian }: { pembelian: PembeliResponse }) => {
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Detail Pertunjukan</Text>
               <View style={styles.detailGrid}>
-                <View style={[styles.infoCard, { backgroundColor: '#fce7f3' }]}>
-                  <View style={[styles.infoIcon, { backgroundColor: '#ec4899' }]}>
+                <View style={[styles.infoCard, { backgroundColor: '#e6f1ff' }]}>
+                  <View style={[styles.infoIcon, { backgroundColor: '#3b82f6' }]}>
                     <Text style={[styles.infoIconText, { color: '#ffffff' }]}>T</Text>
                   </View>
                   <Text style={styles.infoLabel}>Tanggal</Text>
@@ -597,15 +597,15 @@ const TicketPDF = ({ pembelian }: { pembelian: PembeliResponse }) => {
                   </Text>
                 </View>
 
-                <View style={[styles.infoCard, { backgroundColor: '#f3e8ff' }]}>
-                  <View style={[styles.infoIcon, { backgroundColor: '#a855f7' }]}>
+                <View style={[styles.infoCard, { backgroundColor: '#e6f1ff' }]}>
+                  <View style={[styles.infoIcon, { backgroundColor: '#3b82f6' }]}>
                     <Text style={[styles.infoIconText, { color: '#ffffff' }]}>W</Text>
                   </View>
                   <Text style={styles.infoLabel}>Waktu</Text>
                   <Text style={styles.infoValue}>{pembelian.ticket.waktu}</Text>
                 </View>
 
-                <View style={[styles.infoCard, { backgroundColor: '#dbeafe' }]}>
+                <View style={[styles.infoCard, { backgroundColor: '#e6f1ff' }]}>
                   <View style={[styles.infoIcon, { backgroundColor: '#3b82f6' }]}>
                     <Text style={[styles.infoIconText, { color: '#ffffff' }]}>V</Text>
                   </View>
@@ -613,8 +613,8 @@ const TicketPDF = ({ pembelian }: { pembelian: PembeliResponse }) => {
                   <Text style={styles.infoValue}>{pembelian.ticket.venue}</Text>
                 </View>
 
-                <View style={[styles.infoCard, { backgroundColor: '#e0e7ff' }]}>
-                  <View style={[styles.infoIcon, { backgroundColor: '#8b5cf6' }]}>
+                <View style={[styles.infoCard, { backgroundColor: '#e6f1ff' }]}>
+                  <View style={[styles.infoIcon, { backgroundColor: '#3b82f6' }]}>
                     <Text style={[styles.infoIconText, { color: '#ffffff' }]}>P</Text>
                   </View>
                   <Text style={styles.infoLabel}>Penyelenggara</Text>
@@ -713,7 +713,7 @@ const TicketPDF = ({ pembelian }: { pembelian: PembeliResponse }) => {
               <Text style={styles.noticeItem}>• E-ticket ini hanya berlaku untuk satu kali masuk</Text>
               <Text style={styles.noticeItem}>• Tidak dapat dikembalikan atau ditukar</Text>
             </View>
-            <Text style={styles.contact}>Hubungi kami: support@senilokal.id</Text>
+            <Text style={styles.contact}>Hubungi kami: support@tixly.com</Text>
           </View>
         </View>
       </Page>
@@ -723,7 +723,7 @@ const TicketPDF = ({ pembelian }: { pembelian: PembeliResponse }) => {
 
 // HTML Preview Components
 const InfoCard = ({ icon, label, value, bgColor }: { icon: string; label: string; value: string; bgColor: string }) => (
-  <div className="bg-gradient-to-br from-pink-100 to-pink-50 rounded-lg p-3 relative overflow-hidden">
+  <div className="bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg p-3 relative overflow-hidden">
     <div className="relative z-10">
       <div className="w-7 h-7 rounded-full flex items-center justify-center mb-1.5" style={{ backgroundColor: bgColor }}>
         <span className="text-sm">{icon}</span>

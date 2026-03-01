@@ -32,27 +32,27 @@ export function TicketCard({ ticket, featured = false }: TicketCardProps) {
           {ticket.kategori.map((e) => (
             <span
               key={e}
-              className="block text-purple-700 bg-white/90 backdrop-blur-sm text-[8px] md:text-[10px] px-1.5 md:px-2 py-0.5 rounded-full">
+              className="block text-blue-700 bg-white/90 backdrop-blur-sm text-[8px] md:text-[10px] px-1.5 md:px-2 py-0.5 rounded-full">
               {e}
             </span>
           ))}
         </div>
 
         {isAlmostFull && (
-          <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-red-500 text-white px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm">
+          <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-blue-500 text-white px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm">
             Hampir Penuh!
           </div>
         )}
       </div>
 
       <div className="p-4 md:p-6">
-        <h3 className="text-base md:text-xl mb-2 md:mb-3 line-clamp-2 group-hover:text-purple-600 transition-colors">
+        <h3 className="text-base md:text-xl mb-2 md:mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">
           {ticket.judul}
         </h3>
 
         <div className="space-y-1.5 md:space-y-2 mb-3 md:mb-4">
           <div className="flex items-center gap-1.5 md:gap-2 text-gray-600">
-            <Calendar className="w-3.5 h-3.5 md:w-4 md:h-4 text-purple-500 flex-shrink-0" />
+            <Calendar className="w-3.5 h-3.5 md:w-4 md:h-4 text-blue-500 flex-shrink-0" />
             <span className="text-xs md:text-sm truncate">
               {new Date(ticket.tanggal).toLocaleDateString('id-ID', {
                 weekday: 'short',
@@ -63,7 +63,7 @@ export function TicketCard({ ticket, featured = false }: TicketCardProps) {
             </span>
           </div>
           <div className="flex items-center gap-1.5 md:gap-2 text-gray-600">
-            <MapPin className="w-3.5 h-3.5 md:w-4 md:h-4 text-pink-500 flex-shrink-0" />
+            <MapPin className="w-3.5 h-3.5 md:w-4 md:h-4 text-blue-500 flex-shrink-0" />
             <span className="text-xs md:text-sm truncate">
               {ticket.venue}, {ticket.kota}
             </span>
@@ -81,7 +81,7 @@ export function TicketCard({ ticket, featured = false }: TicketCardProps) {
           <div className="w-full bg-gray-200 rounded-full h-1.5 md:h-2 overflow-hidden">
             <div
               className={`h-full rounded-full transition-all ${
-                isAlmostFull ? 'bg-gradient-to-r from-red-500 to-orange-500' : 'bg-gradient-to-r from-purple-500 to-pink-500'
+                isAlmostFull ? 'bg-gradient-to-r from-blue-500 to-indigo-500' : 'bg-gradient-to-r from-blue-500 to-indigo-500'
               }`}
               style={{ width: `${ticket.persentaseTerisi}%` }}
             />
@@ -91,13 +91,13 @@ export function TicketCard({ ticket, featured = false }: TicketCardProps) {
         <div className="flex items-center justify-between gap-2">
           <div className="min-w-0 flex-1">
             <div className="text-xs md:text-sm text-gray-500 mb-0.5 md:mb-1">Harga mulai dari</div>
-            <div className="text-lg md:text-2xl bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent truncate">
+            <div className="text-lg md:text-2xl bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent truncate">
               Rp {ticket.harga.toLocaleString('id-ID')}
             </div>
           </div>
           <Link
             href={`/ticket/${ticket.id}`}
-            className="px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg md:rounded-xl hover:shadow-lg transition-all text-sm md:text-base flex-shrink-0">
+            className="px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg md:rounded-xl hover:shadow-lg transition-all text-sm md:text-base flex-shrink-0">
             Detail
           </Link>
         </div>

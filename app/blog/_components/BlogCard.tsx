@@ -22,14 +22,14 @@ export function BlogCard({ blog }: BlogCardProps) {
             <div
               key={e}
               className="bg-white/90 backdrop-blur-sm px-1.5 md:px-2 py-0.5 text-[8px] md:text-[10px] rounded-full">
-              <span className="text-purple-700">{e}</span>
+              <span className="text-blue-700">{e}</span>
             </div>
           ))}
         </div>
       </div>
 
       <div className="p-4 md:p-6">
-        <h3 className="text-base md:text-xl mb-2 md:mb-3 line-clamp-2 group-hover:text-purple-600 transition-colors">
+        <h3 className="text-base md:text-xl mb-2 md:mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">
           {blog.judul}
         </h3>
 
@@ -50,7 +50,7 @@ export function BlogCard({ blog }: BlogCardProps) {
 
         <div className="flex items-center justify-between pt-3 md:pt-4 border-t border-gray-100">
           <div className="flex items-center gap-1.5 md:gap-2 text-gray-600">
-            <Calendar className="w-3.5 h-3.5 md:w-4 md:h-4 text-purple-500" />
+            <Calendar className="w-3.5 h-3.5 md:w-4 md:h-4 text-blue-500" />
             <span className="text-xs md:text-sm">
               {new Date(blog.createdAt).toLocaleDateString('id-ID', {
                 year: 'numeric',
@@ -61,7 +61,7 @@ export function BlogCard({ blog }: BlogCardProps) {
           </div>
           <Link
             href={'/blog/' + blog.id}
-            className="text-purple-600 hover:text-purple-700 transition-colors text-sm md:text-base">
+            className="text-blue-600 hover:text-blue-700 transition-colors text-sm md:text-base">
             Baca →
           </Link>
         </div>

@@ -32,7 +32,7 @@ export function ContactLayout() {
             <p className="text-gray-600 mb-6">Terima kasih telah menghubungi kami. Tim kami akan segera merespon.</p>
             <button
               onClick={() => setShowSuccess(false)}
-              className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl">
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl">
               Tutup
             </button>
           </div>
@@ -40,7 +40,7 @@ export function ContactLayout() {
       )}
 
       {/* Hero */}
-      <section className="relative overflow-hidden h-[600px] flex flex-col items-center justify-center bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 text-white">
+      <section className="relative overflow-hidden h-[600px] flex flex-col items-center justify-center bg-gradient-to-br from-blue-600 via-indigo-500 to-orange-400 text-white">
         <div className="absolute inset-0 opacity-10">
           <div
             className="absolute inset-0"
@@ -70,7 +70,7 @@ export function ContactLayout() {
       <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8 md:mt-16 mb-12 md:mb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           <div className="bg-white rounded-2xl p-8 shadow-xl text-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <Mail className="w-8 h-8 text-white" />
             </div>
             <h3 className="text-xl mb-2">Email</h3>
@@ -79,7 +79,7 @@ export function ContactLayout() {
           </div>
 
           <div className="bg-white rounded-2xl p-8 shadow-xl text-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <Phone className="w-8 h-8 text-white" />
             </div>
             <h3 className="text-xl mb-2">Telepon</h3>
@@ -88,7 +88,7 @@ export function ContactLayout() {
           </div>
 
           <div className="bg-white rounded-2xl p-8 shadow-xl text-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <MapPin className="w-8 h-8 text-white" />
             </div>
             <h3 className="text-xl mb-2">Alamat</h3>
@@ -111,7 +111,7 @@ export function ContactLayout() {
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Masukkan nama Anda"
                   required
                 />
@@ -123,7 +123,7 @@ export function ContactLayout() {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="email@example.com"
                   required
                 />
@@ -135,7 +135,7 @@ export function ContactLayout() {
                   type="text"
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Tentang apa pesan Anda?"
                   required
                 />
@@ -147,7 +147,7 @@ export function ContactLayout() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   rows={6}
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                   placeholder="Tulis pesan Anda di sini..."
                   required
                 />
@@ -155,7 +155,7 @@ export function ContactLayout() {
 
               <button
                 type="submit"
-                className="w-full py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                className="w-full py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
                 <Send className="w-5 h-5" />
                 Kirim Pesan
               </button>
@@ -165,9 +165,9 @@ export function ContactLayout() {
           {/* Additional Info */}
           <div className="space-y-8">
             {/* Office Hours */}
-            <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-3xl p-8">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
                   <Clock className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-2xl">Jam Operasional</h3>
@@ -189,7 +189,7 @@ export function ContactLayout() {
             </div>
 
             {/* FAQ Quick Links */}
-            <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-3xl p-8">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8">
               <h3 className="text-2xl mb-6">Pertanyaan Umum</h3>
               <div className="space-y-4">
                 {[
@@ -209,9 +209,9 @@ export function ContactLayout() {
 
             {/* Map Placeholder */}
             <div className="bg-white rounded-3xl overflow-hidden shadow-xl">
-              <div className="h-64 bg-gradient-to-br from-purple-200 to-pink-200 flex items-center justify-center">
+              <div className="h-64 bg-gradient-to-br from-blue-200 to-indigo-200 flex items-center justify-center">
                 <div className="text-center">
-                  <MapPin className="w-16 h-16 text-purple-600 mx-auto mb-3" />
+                  <MapPin className="w-16 h-16 text-blue-600 mx-auto mb-3" />
                   <p className="text-gray-700">Lokasi Kantor Kami</p>
                 </div>
               </div>

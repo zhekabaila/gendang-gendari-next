@@ -17,6 +17,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
+import { TicketPDF } from '@/app/pembelian/[id]/_layouts/home-layout'
+import { sendTicketWhatsApp } from '@/lib/send-ticket-whatsapp'
 
 interface TicketDetailPageProps {
   ticketId: string
@@ -108,9 +110,17 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
 
       const { data }: { data: PembeliResponse } = response.data
 
-      toast.success('Pembelian tiket berhasil!')
+      toast.success('Pembelian tiket berhasil! 🎉')
 
       form.reset()
+
+      // Kirim e-ticket PDF ke WhatsApp pembeli (fire-and-forget, tidak blocking)
+      sendTicketWhatsApp(data, TicketPDF)
+        .then(() => toast.success('E-ticket berhasil dikirim ke WhatsApp Anda! 📲'))
+        .catch((err) => {
+          console.warn('WhatsApp send failed (non-critical):', err)
+          toast.warning('Pembelian berhasil, namun e-ticket WhatsApp gagal dikirim. Silakan unduh manual.')
+        })
 
       // Redirect to purchase detail page
       setTimeout(() => {
@@ -410,7 +420,7 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
                   />
 
                   {/* Jumlah Tiket */}
-                  <FormField
+                  {/* <FormField
                     control={form.control}
                     name="jumlahTiket"
                     render={({ field }) => (
@@ -438,7 +448,7 @@ export function TicketDetailPage({ ticketId, token }: TicketDetailPageProps) {
                         <FormMessage className="text-xs" />
                       </FormItem>
                     )}
-                  />
+                  /> */}
 
                   {/* Price Breakdown */}
                   <div className="border-t border-gray-200 pt-4">

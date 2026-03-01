@@ -1,7 +1,7 @@
 'use client'
 
 import { removeToken } from '@/actions/auth'
-import { Ticket, Info, Mail, BookOpen, LayoutDashboard, LogOut, LogIn, HandCoins, User, Menu, X } from 'lucide-react'
+import { Ticket, Mail, BookOpen, LayoutDashboard, LogOut, LogIn, HandCoins, User, Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
@@ -24,7 +24,7 @@ export function Navbar({ isAdmin = false, isLogin }: NavigationProps) {
       ]
     : [
         { label: 'Beranda', page: '/', icon: Ticket },
-        { label: 'Tentang', page: '/about', icon: Info },
+        // { label: 'Tentang', page: '/about', icon: Info },
         { label: 'Blog', page: '/blog', icon: BookOpen },
         { label: 'Kontak', page: '/contact', icon: Mail }
       ]
@@ -34,12 +34,12 @@ export function Navbar({ isAdmin = false, isLogin }: NavigationProps) {
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 md:py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 md:gap-3 group">
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-500 rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br bg-blue-500 rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
               <Ticket className="w-5 h-5 md:w-6 md:h-6 text-white" />
             </div>
             <div className="flex flex-col items-start">
-              <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                SeniLokal
+              <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                Tixly
               </span>
               {isAdmin && <span className="text-xs text-purple-600">Admin Panel</span>}
             </div>
@@ -63,7 +63,7 @@ export function Navbar({ isAdmin = false, isLogin }: NavigationProps) {
                   href={item.page}
                   className={`flex items-center gap-2 px-6 py-2.5 rounded-xl transition-all ${
                     isActive
-                      ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
+                      ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg'
                       : 'text-gray-700 hover:bg-purple-50'
                   }`}>
                   <Icon className="w-4 h-4" />
@@ -92,13 +92,13 @@ export function Navbar({ isAdmin = false, isLogin }: NavigationProps) {
               <>
                 <Link
                   href="/login"
-                  className={`flex items-center gap-2 px-6 py-2.5 rounded-xl transition-all bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg hover:shadow-xl hover:from-blue-600 hover:to-cyan-600`}>
+                  className={`flex items-center gap-2 px-6 py-2.5 rounded-xl transition-all bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg hover:shadow-xl hover:from-blue-600 hover:to-indigo-600`}>
                   <LogIn className="w-4 h-4" />
                   <span>Masuk</span>
                 </Link>
                 <Link
                   href="/register"
-                  className={`flex items-center gap-2 px-6 py-2.5 rounded-xl transition-all bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg hover:shadow-xl hover:from-green-600 hover:to-emerald-600`}>
+                  className={`flex items-center gap-2 px-6 py-2.5 rounded-xl transition-all bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg hover:shadow-xl hover:from-blue-600 hover:to-indigo-600`}>
                   <LogIn className="w-4 h-4" />
                   <span>Daftar</span>
                 </Link>
@@ -121,7 +121,7 @@ export function Navbar({ isAdmin = false, isLogin }: NavigationProps) {
                     onClick={() => setIsMenuOpen(false)}
                     className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                       isActive
-                        ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
+                        ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg'
                         : 'text-gray-700 hover:bg-purple-50'
                     }`}>
                     <Icon className="w-5 h-5" />
@@ -137,7 +137,7 @@ export function Navbar({ isAdmin = false, isLogin }: NavigationProps) {
                   <Link
                     href="/profile"
                     onClick={() => setIsMenuOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl transition-all bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg">
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl transition-all bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg">
                     <User className="w-5 h-5" />
                     <span>Profile</span>
                   </Link>
@@ -156,14 +156,14 @@ export function Navbar({ isAdmin = false, isLogin }: NavigationProps) {
                   <Link
                     href="/login"
                     onClick={() => setIsMenuOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl transition-all bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg">
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl transition-all bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg">
                     <LogIn className="w-5 h-5" />
                     <span>Masuk</span>
                   </Link>
                   <Link
                     href="/register"
                     onClick={() => setIsMenuOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl transition-all bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg">
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl transition-all bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg">
                     <LogIn className="w-5 h-5" />
                     <span>Daftar</span>
                   </Link>
