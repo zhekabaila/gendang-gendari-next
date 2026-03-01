@@ -127,7 +127,7 @@ export function BlogLayout() {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="relative overflow-hidden h-[600px] flex flex-col items-center justify-center bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 text-white">
+      <section className="relative overflow-hidden h-[600px] flex flex-col items-center justify-center bg-gradient-to-br from-blue-600 via-indigo-500 to-orange-400 text-white">
         <div className="absolute inset-0 opacity-10">
           <div
             className="absolute inset-0"
@@ -167,7 +167,7 @@ export function BlogLayout() {
                 alt={blogs[0].judul}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               />
-              <div className="absolute top-6 left-6 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-full">
+              <div className="absolute top-6 left-6 bg-gradient-to-r from-blue-400 to-indigo-500 text-white px-4 py-2 rounded-full">
                 Featured
               </div>
             </div>
@@ -177,13 +177,13 @@ export function BlogLayout() {
                   {blogs[0].kategori.map((e) => (
                     <div
                       key={e}
-                      className="bg-purple-100 text-purple-700 backdrop-blur-sm px-3 md:px-4 py-1 text-xs md:text-sm rounded-full">
+                      className="bg-blue-100 text-blue-700 backdrop-blur-sm px-3 md:px-4 py-1 text-xs md:text-sm rounded-full">
                       <span>{e}</span>
                     </div>
                   ))}
                 </div>
               )}
-              <h2 className="text-2xl md:text-3xl lg:text-4xl mb-3 md:mb-4 group-hover:text-purple-600 transition-colors">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl mb-3 md:mb-4 group-hover:text-blue-600 transition-colors">
                 {blogs[0].judul}
               </h2>
               <p className="text-gray-600 text-lg mb-6 leading-relaxed">{blogs[0].ringkasan}</p>
@@ -213,7 +213,7 @@ export function BlogLayout() {
                   defaultValue={qParams}
                   onChangeValue={(e) => handleFilter('q', e)}
                   placeholder="Cari artikel..."
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -236,7 +236,7 @@ export function BlogLayout() {
                       }}
                       className={`px-4 py-2 rounded-xl transition-all ${
                         categoryParams === category
-                          ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-md'
+                          ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md'
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                       }`}>
                       {category}
@@ -252,7 +252,7 @@ export function BlogLayout() {
       {/* Blog Grid */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 pb-12 md:pb-20">
         <div className="flex items-center gap-2 md:gap-3 mb-6 md:mb-8">
-          <BookOpen className="w-6 h-6 md:w-7 md:h-7 text-purple-600" />
+          <BookOpen className="w-6 h-6 md:w-7 md:h-7 text-blue-600" />
           <h2 className="text-2xl md:text-3xl">Semua Artikel</h2>
         </div>
 
@@ -273,15 +273,15 @@ export function BlogLayout() {
             {/* Fetching indicator */}
             {fetching && (
               <div className="absolute bg-white/20 backdrop-blur-sm inset-0 flex items-center justify-center py-8 gap-2">
-                <Loader className="w-5 h-5 animate-spin text-purple-600" />
+                <Loader className="w-5 h-5 animate-spin text-blue-600" />
                 <span className="text-gray-600">Memuat lebih banyak artikel...</span>
               </div>
             )}
           </div>
         ) : (
           <div className="text-center py-16">
-            <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <BookOpen className="w-12 h-12 text-purple-400" />
+            <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <BookOpen className="w-12 h-12 text-blue-400" />
             </div>
             <h3 className="text-xl text-gray-600 mb-2">Tidak Ada Artikel</h3>
             <p className="text-gray-500">Coba ubah pencarian atau filter untuk melihat artikel lainnya</p>

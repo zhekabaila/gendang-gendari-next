@@ -30,16 +30,8 @@ export function HomeLayout() {
 
   const searchParams = useSearchParams()
 
-  const pageParams = searchParams.get('page')
-  const sortParams = searchParams.get('sort')
-  const limitParams = searchParams.get('limit')
-  const qParams = searchParams.get('q') || ''
   const categoryParams = searchParams.get('category') || null
   const cityParams = searchParams.get('city') || null
-
-  const parsedPage = pageParams ? parseInt(pageParams, 10) || 1 : 1
-  const parsedSort = sortParams === '1' ? 1 : -1
-  const parsedLimit = limitParams ? parseInt(limitParams, 10) || 10 : 10
 
   const navigate = useRouter()
 
@@ -171,15 +163,15 @@ export function HomeLayout() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center py-20 md:py-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 via-purple-500/20 to-indigo-500/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-indigo-500/20 to-pink-500/20" />
         <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-20">
           <div className="text-center max-w-4xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-full mb-6 md:mb-8 shadow-lg">
-              <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-purple-600" />
-              <span className="text-purple-900 text-sm md:text-base">Platform Tiket Pertunjukan Seni Lokal Terpercaya</span>
+              <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-blue-600" />
+              <span className="text-blue-900 text-sm md:text-base">Platform Tiket Pertunjukan Seni Lokal Terpercaya</span>
             </div>
 
-            <h1 className="text-3xl md:text-5xl lg:text-6xl mb-6 md:mb-8 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl mb-6 md:mb-8 bg-gradient-to-r from-blue-600 via-indigo-600 to-pink-600 bg-clip-text text-transparent">
               Dukung Seni Lokal,
               <br />
               Pesan Tiket Mudah!
@@ -195,37 +187,12 @@ export function HomeLayout() {
                 onClick={() => {
                   document.getElementById('ticket-section')?.scrollIntoView({ behavior: 'smooth' })
                 }}
-                className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl md:rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl md:rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
                 <Calendar className="w-4 h-4 md:w-5 md:h-5" />
                 Jelajahi Pertunjukan
               </button>
-              <button className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-white text-purple-700 rounded-xl md:rounded-2xl shadow-lg hover:shadow-xl transition-all">
-                Tentang Kami
-              </button>
             </div>
           </div>
-
-          {/* Stats */}
-          {/* <div className="grid grid-cols-3 gap-8 mt-16 max-w-4xl mx-auto">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 text-center shadow-lg">
-              <div className="text-4xl mb-2 bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                500+
-              </div>
-              <div className="text-gray-700">Pertunjukan</div>
-            </div>
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 text-center shadow-lg">
-              <div className="text-4xl mb-2 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                50K+
-              </div>
-              <div className="text-gray-700">Penonton Senang</div>
-            </div>
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 text-center shadow-lg">
-              <div className="text-4xl mb-2 bg-gradient-to-r from-indigo-600 to-pink-600 bg-clip-text text-transparent">
-                15+
-              </div>
-              <div className="text-gray-700">Kota di Indonesia</div>
-            </div>
-          </div> */}
         </div>
       </section>
 
@@ -233,7 +200,7 @@ export function HomeLayout() {
       <section id="ticket-section" className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16">
         <div className="mb-6 md:mb-8">
           <div className="flex items-center gap-2 md:gap-3">
-            <Calendar className="w-6 h-6 md:w-7 md:h-7 text-purple-600" />
+            <Calendar className="w-6 h-6 md:w-7 md:h-7 text-blue-600" />
             <h2 className="text-2xl md:text-3xl">Semua Pertunjukan</h2>
           </div>
         </div>
@@ -263,7 +230,7 @@ export function HomeLayout() {
                       }}
                       className={`px-4 py-2 rounded-xl transition-all ${
                         categoryParams === category
-                          ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-md'
+                          ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md'
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                       }`}>
                       {category}
@@ -286,7 +253,7 @@ export function HomeLayout() {
                       }}
                       className={`px-4 py-2 rounded-xl transition-all flex items-center gap-2 ${
                         cityParams === city
-                          ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-md'
+                          ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md'
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                       }`}>
                       <MapPin className="w-4 h-4" />
@@ -316,8 +283,8 @@ export function HomeLayout() {
               </div>
             ) : (
               <div className="text-center py-16">
-                <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Calendar className="w-12 h-12 text-purple-400" />
+                <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Calendar className="w-12 h-12 text-blue-400" />
                 </div>
                 <h3 className="text-xl text-gray-600 mb-2">Tidak Ada Pertunjukan</h3>
                 <p className="text-gray-500">Coba ubah filter untuk melihat pertunjukan lainnya</p>
@@ -327,7 +294,7 @@ export function HomeLayout() {
             {/* Fetching indicator */}
             {fetching && (
               <div className="absolute bg-white/20 backdrop-blur-sm inset-0 flex items-center justify-center py-8 gap-2">
-                <Loader className="w-5 h-5 animate-spin text-purple-600" />
+                <Loader className="w-5 h-5 animate-spin text-blue-600" />
                 <span className="text-gray-600">Memuat lebih banyak pertunjukan...</span>
               </div>
             )}

@@ -261,7 +261,7 @@ export function AdminTicketManagement({ token }: IProps) {
             </div>
             <button
               onClick={() => setShowAddModal(true)}
-              className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all text-sm sm:text-base w-full sm:w-auto">
+              className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all text-sm sm:text-base w-full sm:w-auto">
               <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
               Tambah Pertunjukan
             </button>
@@ -292,7 +292,7 @@ export function AdminTicketManagement({ token }: IProps) {
                         }}
                         className={`px-4 py-2 rounded-xl transition-all ${
                           categoryParams === category
-                            ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-md'
+                            ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-md'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}>
                         {category}
@@ -359,7 +359,7 @@ export function AdminTicketManagement({ token }: IProps) {
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2 flex-wrap">
                           {ticket.kategori.map((e) => (
-                            <span key={e} className="px-2 py-0.5 text-[10px] bg-purple-100 text-purple-700 rounded-full">
+                            <span key={e} className="px-2 py-0.5 text-[10px] bg-blue-100 text-blue-700 rounded-full">
                               {e}
                             </span>
                           ))}
@@ -376,7 +376,7 @@ export function AdminTicketManagement({ token }: IProps) {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2 text-gray-700">
-                          <MapPin className="w-4 h-4 text-pink-500" />
+                          <MapPin className="w-4 h-4 text-blue-500" />
                           <span className="text-sm">{ticket.kota}</span>
                         </div>
                       </td>
@@ -435,7 +435,7 @@ export function AdminTicketManagement({ token }: IProps) {
                     setShowAddModal(true)
                     setType('add')
                   }}
-                  className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all">
+                  className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all">
                   Tambah Pertunjukan
                 </button>
               </div>

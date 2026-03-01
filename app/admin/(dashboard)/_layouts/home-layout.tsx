@@ -18,22 +18,18 @@ export function AdminDashboard({ token }: IProps) {
   // Tickets states
   const [tickets, setTickets] = useState<TicketResponse[]>([])
   const [loadingTickets, setLoadingTickets] = useState(true)
-  const [fetchingTickets, setFetchingTickets] = useState(false)
 
   // Blogs states
   const [blogs, setBlogs] = useState<BlogResponse[]>([])
   const [loadingBlogs, setLoadingBlogs] = useState(true)
-  const [fetchingBlogs, setFetchingBlogs] = useState(false)
 
   // Users states
   const [users, setUsers] = useState<UserResponse[]>([])
   const [loadingUsers, setLoadingUsers] = useState(true)
-  const [fetchingUsers, setFetchingUsers] = useState(false)
 
   // Pembeli states
   const [pembeli, setPembeli] = useState<PembeliResponse[]>([])
   const [loadingPembeli, setLoadingPembeli] = useState(true)
-  const [fetchingPembeli, setFetchingPembeli] = useState(false)
 
   const [loadingDashboardStats, setLoadingDashboardStats] = useState(false)
   const [dashboardStats, setDashboardStats] = useState<{
@@ -221,11 +217,6 @@ export function AdminDashboard({ token }: IProps) {
     fetchDashboardStats()
   }, [fetchTickets, fetchBlogs, fetchUsers, fetchPembeli, fetchDashboardStats])
 
-  // Calculate stats from tickets
-  const totalTickets = tickets.length
-  const totalSold = tickets.reduce((sum, ticket) => sum + (ticket.totalTerjual || 0), 0)
-  const totalRevenue = tickets.reduce((sum, ticket) => sum + (ticket.totalTerjual || 0) * (ticket.harga || 0), 0)
-  const totalBlogs = blogs.length
   const recentTickets = tickets.slice(0, 5)
 
   return (
@@ -254,10 +245,10 @@ export function AdminDashboard({ token }: IProps) {
             <div className="text-gray-600 text-xs sm:text-sm">Total Pertunjukan</div>
           </div>
 
-          <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border-l-4 border-pink-500">
+          <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border-l-4 border-blue-500">
             <div className="flex items-center justify-between mb-3 sm:mb-4">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-pink-100 rounded-lg sm:rounded-xl flex items-center justify-center">
-                <Users className="w-5 h-5 sm:w-6 sm:h-6 text-pink-600" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg sm:rounded-xl flex items-center justify-center">
+                <Users className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
               </div>
               <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
             </div>
@@ -296,7 +287,7 @@ export function AdminDashboard({ token }: IProps) {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8 lg:mb-12">
-          <button className="bg-gradient-to-br from-purple-500 to-pink-500 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg hover:shadow-xl transition-all text-left group">
+          <button className="bg-gradient-to-br from-purple-500 to-blue-500 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg hover:shadow-xl transition-all text-left group">
             <Ticket className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 mb-3 sm:mb-4 group-hover:scale-110 transition-transform" />
             <h3 className="text-lg sm:text-xl lg:text-2xl mb-1 sm:mb-2">Kelola Tiket</h3>
             <p className="opacity-90 text-sm sm:text-base">Tambah, edit, atau hapus pertunjukan</p>
@@ -313,10 +304,10 @@ export function AdminDashboard({ token }: IProps) {
         <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden">
           <div className="p-4 sm:p-6 border-b border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
             <div className="flex items-center gap-2 sm:gap-3">
-              <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
+              <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
               <h2 className="text-lg sm:text-xl lg:text-2xl">Pertunjukan Terbaru</h2>
             </div>
-            <button className="text-purple-600 hover:text-purple-700 transition-colors text-sm sm:text-base">
+            <button className="text-blue-600 hover:text-blue-700 transition-colors text-sm sm:text-base">
               Lihat Semua →
             </button>
           </div>
@@ -348,7 +339,7 @@ export function AdminDashboard({ token }: IProps) {
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">
+                        <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
                           {ticket.kategori[0]}
                         </span>
                       </td>
@@ -360,7 +351,7 @@ export function AdminDashboard({ token }: IProps) {
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
                           <div
-                            className="bg-gradient-to-r from-purple-500 to-pink-500 h-1.5 rounded-full"
+                            className="bg-gradient-to-r from-blue-500 to-purple-500 h-1.5 rounded-full"
                             style={{ width: `${soldPercentage}%` }}
                           />
                         </div>
@@ -384,10 +375,10 @@ export function AdminDashboard({ token }: IProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mt-4 sm:mt-6">
           <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
             <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-              <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
+              <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
               <h3 className="text-base sm:text-lg lg:text-xl">Penjualan Tiket Bulanan</h3>
             </div>
-            <div className="h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg sm:rounded-xl flex items-center justify-center">
+            <div className="h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg sm:rounded-xl flex items-center justify-center">
               <p className="text-gray-500 text-sm sm:text-base text-center px-4">
                 Grafik penjualan akan ditampilkan di sini
               </p>
@@ -396,10 +387,10 @@ export function AdminDashboard({ token }: IProps) {
 
           <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
             <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-              <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600" />
+              <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
               <h3 className="text-base sm:text-lg lg:text-xl">Kategori Populer</h3>
             </div>
-            <div className="h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg sm:rounded-xl flex items-center justify-center">
+            <div className="h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg sm:rounded-xl flex items-center justify-center">
               <p className="text-gray-500 text-sm sm:text-base text-center px-4">Grafik kategori akan ditampilkan di sini</p>
             </div>
           </div>

@@ -213,7 +213,7 @@ export function AdminBlogManagement({ token }: IProps) {
             </div>
             <button
               onClick={() => setShowAddModal(true)}
-              className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all text-sm sm:text-base w-full sm:w-auto">
+              className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all text-sm sm:text-base w-full sm:w-auto">
               <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
               Tambah Artikel
             </button>
@@ -286,7 +286,7 @@ export function AdminBlogManagement({ token }: IProps) {
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2 flex-wrap">
                           {blog.kategori.map((e) => (
-                            <span key={e} className="px-2 py-0.5 text-[10px] bg-purple-100 text-purple-700 rounded-full">
+                            <span key={e} className="px-2 py-0.5 text-[10px] bg-blue-100 text-blue-700 rounded-full">
                               {e}
                             </span>
                           ))}
