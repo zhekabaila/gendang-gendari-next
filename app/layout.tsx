@@ -6,6 +6,7 @@ import { TooltipProvider } from '@/components/ui/tooltip'
 import { Toaster } from '@/components/ui/sonner'
 import { Navbar } from './_components/Navbar'
 import { Footer } from './_components/Footer'
+import { ChatbotWidget } from './_components/ChatbotWidget'
 import { cookies } from 'next/headers'
 import { UserResponse } from '@/lib/types'
 
@@ -41,8 +42,6 @@ export default async function RootLayout({
     user = null
   }
 
-  console.log(user)
-
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
@@ -54,6 +53,7 @@ export default async function RootLayout({
           </TooltipProvider>
           <Toaster richColors position="top-center" />
         </ThemeProvider>
+        <ChatbotWidget />
       </body>
     </html>
   )
